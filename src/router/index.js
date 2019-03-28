@@ -22,6 +22,7 @@ import addUri from '@/components/addUri'
 import addMenu from '@/components/addMenu'
 import addReport from '@/components/addReport'
 import weekReport from "@/components/WeekReport";
+import selfWeekyReport from'@/components/selfWeekyReport'
 // import dateSelectWithButton from '@/components/DateDemo2'
 // import dateSelect from '@/components/DateDemo'
 
@@ -80,51 +81,56 @@ export default new Router({
             path: '/personelContent',
             name: 'personelContent',
             component:personelContent
-        },{
+            },{
             path: '/reportOperation',
             name: 'reportOperation',
             component:reportOperation
-        },{
+            },{
             path: '/selfDailyReport',
             name: 'selfDailyReport',
             component:selfDailyReport
-        },{
+            },{
             path: '/dailyReport',
             name: 'dailyReport',
             component:dailyReport
-        },{
+            },{
             path: '/weekyReport',
             name: 'weekyReport',
             component:weekyReport
-        },{
+            },{
             path:'/menuControl',
             name: 'menuControl',
             component: menuControl
-        },{
+            },{
             path:'/uriControl',
             name: 'uriControl',
             component: uriControl
-        },{
+            },{
             path: '/menuOperation',
             name: 'menuOperation',
             component:menuOperation
-        },{
+            },{
             path: '/interfaceOperation',
             name: 'interfaceOperation',
             component:interfaceOperation
-        },{
+            },{
             path: '/addUri',
             name: 'addUri',
             component:addUri
-        },{
+            },{
             path: '/addMenu',
             name: 'addMenu',
             component:addMenu
-        },{
+            },{
             path: '/addReport',
             name: 'addReport',
             component:addReport
-        }]
+            },{
+            path:'/selfWeekyReport',
+            name:'selfWeekyReport',
+            component:selfWeekyReport
+            }
+    ]
         },
         {
             path: '/weekReport',
