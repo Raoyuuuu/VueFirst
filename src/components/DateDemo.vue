@@ -2,8 +2,10 @@
   <div id="datee">
     <div span="12">
       <div class="dateleft">
-        <Select v-model="model1" style="width:200px">
-          <Option v-for="item in dateList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+        <Select style="width:200px">
+          <Option v-for="item in dateList":key="item.dateFrom" :value="item.dateTo" @click.native="choose(item.dateFrom,item.dateTo)">
+            {{item.dateFrom}}至{{item.dateTo}}
+            </Option>
         </Select>
       </div>
 
@@ -13,7 +15,7 @@
       </div>
 
       <div class="dateright">
-        <Button>导出</Button>
+        <Button @click="ontPut">导出</Button>
       </div>
     </div>
   </div>
@@ -27,21 +29,62 @@ export default {
   data() {
     return {
       dateList:[],
-      date:null,
-      model1:null,
-      dateee:null
+      dateFrom:null,
+      dateTo:null
     }
     
   },
   methods:{
     changeToDay:function(){
       this.$router.push('/dailyReport')
+    },
+    choose:function(form,to){
+      this.dateFrom = form
+      this.dateTo = to
+      // console.log(this.dateFrom + "  " +this.dateTo)
+    },
+    ontPut:function(){
+      console.log(this.$store.user)
+      // this.axios.defaults.headers.common['Content-Type']= 'application/vnd.ms-excel'
+      this.axios.post('http://10.1.9.53:9200/daily/weeklyinfo/exportPost',
+        qs.stringify({
+          dateFrom:this.$data.dateFrom,
+          dateTo:this.$data.dateTo,
+          userId:this.$store.user
+        })
+      )
+      .then(res => {
+        console.log(res)
+        const blob = new Blob( [res], {type: 'application/vnd.ms-excel'} )
+          const fileName = "";
+          var filename = this.$data.dateFrom + '-' + this.$data.dateTo+"报表信息.xls";
+          if ("download" in document.createElement("a")) {
+            // 非IE下载
+            const elink = document.createElement("a");
+            elink.download = filename;
+            elink.style.display = "none";
+            elink.href = URL.createObjectURL(blob);
+            document.body.appendChild(elink);
+            elink.click();
+            URL.revokeObjectURL(elink.href); // 释放URL 对象
+            document.body.removeChild(elink);
+          } else {
+            // IE10+下载
+            navigator.msSaveBlob(blob, filename);
+          }
+
+      })
+      .catch(err => {
+        console.error(err); 
+      })
     }
   },
   mounted(){
     var myToken = window.localStorage.getItem('token')
     var myId = this.$store.user
+    // console.log(myId)
     this.axios.defaults.headers.common['tk-token'] = myToken
+    // this.axios.defaults.headers.common['Content-Type']= 'application/vnd.ms-excel'
     // debugger
     this.axios.post('http://10.1.9.54:9200/daily/weeklyinfo/showWeeklyInfo',
       qs.stringify({
@@ -50,6 +93,28 @@ export default {
     )
     .then(res => {
       console.log(res)
+      if(res.data.resultCode == '200'){
+                // console.log(res.data.data.dateScope.length)
+                for (var i=0;i<res.data.data.dateScope.length;i++){
+                    var daF = res.data.data.dateScope[i].dateFrom
+                    var daT= res.data.data.dateScope[i].dateTo
+                     daF = new Date(daF);
+                     daT = new Date(daT);
+                     var yearF = daF.getFullYear()+'-';
+                     var monthF = daF.getMonth()+1+'-';
+                     var dateF = daF.getDate()+'';
+                     var timeF = yearF+monthF+dateF;
+                     res.data.data.dateScope[i].dateFrom = timeF
+                     var yearT = daT.getFullYear()+'-';
+                     var monthT = daT.getMonth()+1+'-';
+                     var dateT = daT.getDate()+'';
+                     var timeT = yearT+monthT+dateT;
+                     res.data.data.dateScope[i].dateTo = timeT
+                    //  this.$data.dateList.push(timeF+'至'+timeT)
+                  }
+                  this.dateList = res.data.data.dateScope
+                  // console.log(this.$data.dateList)
+          }
     })
     .catch(err => {
       console.error(err); 

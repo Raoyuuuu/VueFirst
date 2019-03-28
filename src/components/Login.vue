@@ -30,6 +30,7 @@ export default {
             clickFn:function(){
                 var username1 = this.$data.username;
                 var password1 = this.$data.password;
+       
                 this.axios.post('http://10.1.9.54:9200/daily/userinfo/loginToken',qs.stringify({
                     username: username1,
                     password: password1
