@@ -105,7 +105,7 @@ export default {
             }
         },mounted(){
             var myToken = window.localStorage.getItem('token')
-            this.axios.defaults.headers.common['tk-token'] = myToken
+            this.axios.defaults.headers.common['tk-token'] = "myToken"
             this.axios.post('http://10.1.9.54:9200/daily/menu/findAllMenus')
             .then(res => {
                 console.log(res)

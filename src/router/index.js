@@ -22,6 +22,10 @@ import addUri from '@/components/addUri'
 import addMenu from '@/components/addMenu'
 import addReport from '@/components/addReport'
 import weekReport from "@/components/WeekReport";
+import roleManagement from "@/components/RoleManagement";
+import powerAndMenu from "@/components/PowerAndMenu";
+import powerAndUrl from "@/components/PowerAndUrl";
+import transfer from '@/components/Transfer'
 // import dateSelectWithButton from '@/components/DateDemo2'
 // import dateSelect from '@/components/DateDemo'
 
@@ -124,7 +128,29 @@ export default new Router({
             path: '/addReport',
             name: 'addReport',
             component:addReport
-        }]
+        },
+        {
+            path: '/roleManagement',
+            name: 'roleManagement',
+            component:roleManagement
+        },
+        {
+            path: '/transfer',
+            name: 'transfer',
+            component:transfer
+        },
+        {
+            path: '/powerAndUrl',
+            name: 'powerAndUrl',
+            component:powerAndUrl
+        },
+        {
+            path: '/powerAndMenu',
+            name: 'powerAndMenu',
+            component:powerAndMenu
+        },
+    
+    ]
         },
         {
             path: '/weekReport',

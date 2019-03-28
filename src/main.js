@@ -23,7 +23,9 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     user:'',
-    // token: '',
+    role:[],
+    power:[],
+    uri:[],
     employeeList: [],
     dailyReportList: [],
     menuContent:{},
