@@ -67,7 +67,7 @@ export default {
             show(index){
                 var thisMId = this.$data.menuList[index].menuId
                 console.log(thisMId)
-                this.axios.post('http://10.1.9.53:9200/daily/menu/findMenuById',
+                this.axios.post('http://10.1.9.54:9200/daily/menu/findMenuById',
                 qs.stringify({
                     menuId:thisMId
                 }))
