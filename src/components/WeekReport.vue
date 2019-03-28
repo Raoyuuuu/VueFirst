@@ -91,12 +91,12 @@ import qs from 'qs'
         },
         methods: {
             show (index) {
-                console.log(this.$data.dailyData[index].weeklyId)
+                console.log(this.$data.weekyData[index].weeklyId)
                 
                 this.axios.post('http://10.1.9.53:9200/daily/weeklyinfo/findByUserId',
                 //this.axios.post('http://10.1.9.54:9200/daily/dailyinfo/findByDailyId',
                 qs.stringify({
-                    weeklyId:this.$data.dailyData[index].weeklyId
+                    weeklyId:this.$data.weekyData[index].weeklyId
                 })
                 )
                 .then(res => {
@@ -112,8 +112,8 @@ import qs from 'qs'
                 })
             },
             remove (index) {
-                var thisRId = this.$data.dailyData[index].userId
-                this.dailyData.splice(index, 1);
+                var thisRId = this.$data.weekyData[index].userId
+                this.weekyData.splice(index, 1);
                 // this.axios.post('http://10.1.9.54:9200/daily/dailyinfo/',params)
                 // .then(res => {
                 //     console.log(res)
@@ -144,8 +144,8 @@ import qs from 'qs'
                 //      var time = year+month+date
                 //      res.data.data[i].date = time
                 // }
-                this.dailyData = res.data.data
-                console.log(this.dailyData)
+                this.weekyData = res.data.data
+                console.log(this.weekyData)
                 }
             })
             .catch(err => {
