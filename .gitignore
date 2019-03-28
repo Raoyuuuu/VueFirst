@@ -30,4 +30,5 @@ maven-wrapper.properties
 /node_modules/
 /nbdist/
 /.nb-gradle/
-.vscode/launch.json
+config/index.js
+
