@@ -26,7 +26,7 @@ export default {
   }
 };
 </script>
-
+<!-- 测试上传-->
 <style>
 .content {
   width: 100%;
