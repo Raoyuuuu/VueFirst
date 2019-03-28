@@ -22,6 +22,7 @@ import addUri from '@/components/addUri'
 import addMenu from '@/components/addMenu'
 import addReport from '@/components/addReport'
 import weekReport from "@/components/WeekReport";
+import selfweekyReport from '@/components/selfweekyReport'
 import roleManagement from "@/components/RoleManagement";
 import powerAndMenu from "@/components/PowerAndMenu";
 import powerAndUrl from "@/components/PowerAndUrl";
@@ -149,7 +150,11 @@ export default new Router({
             path: '/powerAndMenu',
             name: 'powerAndMenu',
             component:powerAndMenu
-        },
+        },{
+            path:'/selfweekyReport',
+            name:'selfweekyReport',
+            component:selfweekyReport
+        }
     
     ]
         },
