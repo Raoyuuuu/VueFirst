@@ -51,13 +51,13 @@ export default {
             key: 'name'
         },{
             title: '部门',
-            key:'deptId'
+            key:'dept'
         },{
             title:'职位',
             key:'role'
         },{
             title:'性别',
-            key:'sex'
+            key:'gender'
         }],
         personel:[],
         department:[],
@@ -90,9 +90,9 @@ export default {
             qs.stringify(
                 {
                     name:  this.$data.name,
-                    // age: this.$data.role,
-                    // sex: this.$data.sex,
-                    deptId: this.$data.deptId,
+                    role: this.$data.role,
+                    gender: this.$data.gender,
+                    dept: this.$data.dept,
                     }
                     )
             )
@@ -112,7 +112,7 @@ export default {
     },mounted(){
             var myToken = window.localStorage.getItem('token')
             this.axios.defaults.headers.common['tk-token'] = myToken
-            this.axios.post('http://10.1.9.54:9200/daily/userinfo/findAllUser')
+            this.axios.post('http://10.1.9.54:9200/daily/userinfo/findAllUserInfo')
             .then(res => {
                 console.log(res)
                 if(res.data.resultCode == '200'){
