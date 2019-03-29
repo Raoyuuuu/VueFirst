@@ -3,7 +3,7 @@
     <div span="12">
       <div class="dateleft">
         <Select style="width:200px">
-          <Option v-for="item in dateList":key="item.dateFrom" :value="item.dateTo" @click.native="choose(item.dateFrom,item.dateTo)">
+          <Option v-for="item in dateList" :key="item.dateFrom" :value="item.dateTo" @click.native="choose(item.dateFrom,item.dateTo)">
             {{item.dateFrom}}至{{item.dateTo}}
             </Option>
         </Select>
@@ -44,46 +44,50 @@ export default {
       // console.log(this.dateFrom + "  " +this.dateTo)
     },
     ontPut:function(){
-      console.log(this.$store.user)
-      // this.axios.defaults.headers.common['Content-Type']= 'application/vnd.ms-excel'
-      this.axios.post('http://10.1.9.53:9200/daily/weeklyinfo/exportPost',
-        qs.stringify({
-          dateFrom:this.$data.dateFrom,
-          dateTo:this.$data.dateTo,
-          userId:this.$store.user
-        })
-      )
-      .then(res => {
-        console.log(res)
-        const blob = new Blob( [res], {type: 'application/vnd.ms-excel'} )
-          const fileName = "";
-          var filename = this.$data.dateFrom + '-' + this.$data.dateTo+"报表信息.xls";
-          if ("download" in document.createElement("a")) {
-            // 非IE下载
-            const elink = document.createElement("a");
-            elink.download = filename;
-            elink.style.display = "none";
-            elink.href = URL.createObjectURL(blob);
-            document.body.appendChild(elink);
-            elink.click();
-            URL.revokeObjectURL(elink.href); // 释放URL 对象
-            document.body.removeChild(elink);
-          } else {
-            // IE10+下载
-            navigator.msSaveBlob(blob, filename);
-          }
+        window.location.href='http://10.1.9.53:9200/daily/weeklyinfo/export?userId='
+        +this.$store.user+'&dateFrom='+this.$data.dateFrom+'&dateTo='+this.$data.dateTo;
+      // console.log(this.$store.user)
+      // this.axios.defaults.responseType = 'blob'
+      // this.axios.post('http://10.1.9.53:9200/daily/weeklyinfo/exportPost',
+      //   qs.stringify({
+      //     userId:this.$store.user,
+      //     dateFrom:this.$data.dateFrom,
+      //     dateTo:this.$data.dateTo,
+          
+      //   })
+      // )
+      // .then(res => {
+      //   console.log(res)
+      //   debugger
+      //   const blob = new Blob( [res], {type: 'application/octet-stream'} )
+      //     // const fileName = "";
+      //     const filename = this.$data.dateFrom + '-' + this.$data.dateTo+"报表信息.xls";
+      //     if ("download" in document.createElement("a")) {
+      //       // 非IE下载
+      //       const elink = document.createElement("a");
+      //       elink.download = filename;
+      //       elink.style.display = "none";
+      //       elink.href = URL.createObjectURL(blob);
+      //       document.body.appendChild(elink);
+      //       elink.click();
+      //       URL.revokeObjectURL(elink.href); // 释放URL 对象
+      //       document.body.removeChild(elink);
+      //     } else {
+      //       // IE10+下载
+      //       navigator.msSaveBlob(blob, filename);
+      //     }
 
-      })
-      .catch(err => {
-        console.error(err); 
-      })
+      // })
+      // .catch(err => {
+      //   console.error(err); 
+      // })
     }
   },
   mounted(){
     var myToken = window.localStorage.getItem('token')
     var myId = this.$store.user
     // console.log(myId)
-    this.axios.defaults.headers.common['tk-token'] = myToken
+    this.axios.defaults.headers['tk-token'] = myToken
     // this.axios.defaults.headers.common['Content-Type']= 'application/vnd.ms-excel'
     // debugger
     this.axios.post('http://10.1.9.54:9200/daily/weeklyinfo/showWeeklyInfo',
