@@ -21,6 +21,7 @@ import interfaceOperation from '@/components/interfaceOperation'
 import addUri from '@/components/addUri'
 import addMenu from '@/components/addMenu'
 import addReport from '@/components/addReport'
+import addWeekReport from '@/components/addWeekReport'
 import weekReport from "@/components/WeekReport";
 import selfweekyReport from '@/components/selfweekyReport'
 import roleManagement from "@/components/RoleManagement";
@@ -154,7 +155,12 @@ export default new Router({
             path:'/selfweekyReport',
             name:'selfweekyReport',
             component:selfweekyReport
-        }
+        },
+        {
+          path:'/addWeekReport',
+          name:'addWeekReport',
+          component:addWeekReport
+      }
     
     ]
         },
