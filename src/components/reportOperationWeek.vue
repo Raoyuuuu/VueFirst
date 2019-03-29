@@ -13,7 +13,7 @@
                     项目名称:<i-Input placeholder="" class = 'reportInput' v-model="reportContentWeek.target"></i-Input>
                 </div>
                 <div class = 'smallSize'>
-                    项目类别:<i-Input placeholder="" class = 'reportInput' v-model="reportContentWeek.type"></i-Input>
+                    项目类别:<i-Input placeholder="" class = 'reportInput' v-model="reportContentWeek.projectType"></i-Input>
                 </div>
                 <div class = 'smallSize'>
                     内容描述:<i-Input placeholder="" class = 'reportInput' v-model="reportContentWeek.description"></i-Input>
@@ -29,9 +29,9 @@
                 <div class = 'largeSize'>
                     未完成原因:<Input  type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder=""  v-model="reportContentWeek.reason"/>
                 </div>
-                <div class = 'largeSize'>
+                <!-- <div class = 'largeSize'>
                     遗留问题:<Input  type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder=""  v-model="reportContentWeek.problem"/>
-                </div> 
+                </div>  -->
             </div>
         </div>
     </div>
@@ -40,7 +40,7 @@
 <script>
 // var myToken
 var target
-var type
+var projectType
 var description
 var progress
 var planDate
@@ -57,7 +57,7 @@ export default {
     methods:{
         reSet:function(){
         this.$data.reportContentWeek.target = target
-        this.$data.reportContentWeek.type = type
+        this.$data.reportContentWeek.projectType = projectType
         this.$data.reportContentWeek.description = description
         this.$data.reportContentWeek.progress = progress
         this.$data.reportContentWeek.planDate = planDate
@@ -65,11 +65,11 @@ export default {
         //this.$data.reportContentWeek.problem = problem
         },
         updReport:function(){
-            this.axios.post('http://10.1.9.54:9200/daily/dailyinfo/updateByDailyId',
+            this.axios.post('http://10.1.9.53:9200/daily/weeklyinfo/updateByWeeklyId',
                 qs.stringify({
-                    dailyId:this.$data.reportContentWeek.dailyId,
+                    weeklyId:this.$data.reportContentWeek.weeklyId,
                     target:this.$data.reportContentWeek.target,
-                    type:this.$data.reportContentWeek.type,
+                    projectType:this.$data.reportContentWeek.projectType,
                     description:this.$data.reportContentWeek.description,
                     progress:this.$data.reportContentWeek.progress,
                     planDate:this.$data.reportContentWeek.planDate, 
@@ -94,7 +94,7 @@ export default {
         this.axios.defaults.headers.common['tk-token'] = myToken
         
         target = this.$data.reportContentWeek.target
-        type = this.$data.reportContentWeek.type
+        projectType = this.$data.reportContentWeek.projectType
         description = this.$data.reportContentWeek.description
         progress = this.$data.reportContentWeek.progress
         planDate = this.$data.reportContentWeek.planDate

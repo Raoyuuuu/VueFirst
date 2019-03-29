@@ -32,7 +32,7 @@ import qs from 'qs'
                     },{
                         title: '类别',
                         align: 'center',
-                        key: 'type',
+                        key: 'projectType',
                         
                     },{
                         title: '内容描述',

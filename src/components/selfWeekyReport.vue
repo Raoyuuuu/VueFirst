@@ -5,7 +5,7 @@
         <Button type="default" icon="md-add" @click="clickFn" >新增</Button>
         <!-- <Button type="primary">撤回</Button> -->
         </div>
-        <Table border :columns="weekyColumns" :data="weekyData"></Table>
+        <Table border :columns="weekyColumns" :data="weeklyData"></Table>
     </div>
     
 </template>
@@ -40,7 +40,7 @@ import qs from 'qs'
                     },{
                         title: '类别',
                         align: 'center',
-                        key: 'type',
+                        key: 'projectType',
                         
                     },{
                         title: '内容描述',
@@ -94,21 +94,21 @@ import qs from 'qs'
                         }
                     }
                 ],
-                weekyData:[]
+                weeklyData:[]
             }
         },
         methods: {
             show (index) {
-                console.log(this.$data.weekyData[index].weekyId)
-                this.axios.post('http://10.1.9.53:9200/daily/weeklyinfo/findByUserId',
+                console.log(this.$data.weeklyData[index].weeklyId)
+                this.axios.post('http://10.1.9.53:9200/daily/weeklyinfo/findByWeeklyId',
                 qs.stringify({
-                    dailyId:this.$data.weekyData[index].weekyId
+                    weeklyId:this.$data.weeklyData[index].weeklyId
                 })
                 )
                 .then(res => {
                     if(res.data.resultCode == '200'){
                         this.$store.reportContentWeek = res.data.data
-                        this.$router.push('/reportOperation')
+                        this.$router.push('/reportOperationWeek')
                         }
                     
                     console.log(res)
@@ -118,7 +118,7 @@ import qs from 'qs'
                 })
             },
             remove (index) {
-                this.weekyData.splice(index, 1);
+                this.weeklyData.splice(index, 1);
             },
             clickFn:function(){
                 this.$router.push('/addWeekReport')
@@ -145,7 +145,7 @@ import qs from 'qs'
                 //      var time = year+month+date
                 //      res.data.data[i].date = time
                 // }
-               this.weekyData = res.data.data
+               this.weeklyData = res.data.data
                 //  this.$store.title = userName+"的日报表"
                 // console.log(this.$store.title)
                 }
