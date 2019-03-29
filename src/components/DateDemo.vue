@@ -44,10 +44,12 @@ export default {
       // console.log(this.dateFrom + "  " +this.dateTo)
     },
     ontPut:function(){
-        window.location.href='http://10.1.9.53:9200/daily/weeklyinfo/export?userId='
-        +this.$store.user+'&dateFrom='+this.$data.dateFrom+'&dateTo='+this.$data.dateTo;
+      var myHerf = 'http://10.1.9.53:9200/daily/weeklyinfo/export?userId='
+      +this.$store.user+'&dateFrom='+this.$data.dateFrom+'&dateTo='+this.$data.dateTo;
+      // console.log(myHerf)
+      window.location.href=myHerf
       // console.log(this.$store.user)
-      // this.axios.defaults.responseType = 'blob'
+      // this.axios.defaults.responseType = 'arraybuffer'
       // this.axios.post('http://10.1.9.53:9200/daily/weeklyinfo/exportPost',
       //   qs.stringify({
       //     userId:this.$store.user,
@@ -58,7 +60,7 @@ export default {
       // )
       // .then(res => {
       //   console.log(res)
-      //   debugger
+      //   // debugger
       //   const blob = new Blob( [res], {type: 'application/octet-stream'} )
       //     // const fileName = "";
       //     const filename = this.$data.dateFrom + '-' + this.$data.dateTo+"报表信息.xls";
