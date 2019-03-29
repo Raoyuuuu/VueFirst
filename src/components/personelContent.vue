@@ -5,10 +5,10 @@
             姓名:<i-Input placeholder="" class = 'searchInput' v-model="name"></i-Input>
         </div>
         <div class = 'searchItem'>
-            职位:<i-Input placeholder="" class = 'searchInput' v-model="age"></i-Input>
+            职位:<i-Input placeholder="" class = 'searchInput' v-model="role"></i-Input>
         </div>
         <div class = 'searchItem'>
-            <Select v-model="sex" class = 'searchInput' placeholder="性别">
+            <Select v-model="gender" class = 'searchInput' placeholder="性别">
                 <Option v-for="item in content" :value="item.value" :key="item.value" >{{ item.label }}</Option>
             </Select>
         </div>
@@ -37,6 +37,7 @@
 import axios from 'axios'
 import qs from 'qs'
 
+var myToken
 
 export default {
  data(){
@@ -69,8 +70,8 @@ export default {
                 label: '女'
             }],
         name:'',
-        age:'',
-        sex:'',
+        role:'',
+        gender:'',
         dept:'',
         deptId:'',
         }
@@ -85,14 +86,14 @@ export default {
         clickFn:function(el){
             // console.log(qs.stringify(this.$data.name))
             // console.log(qs.stringify(this.$data.deptId))
-            this.axios.defaults.headers.common['kt-token'] = myToken
+            // this.axios.defaults.headers.common['kt-token'] = myToken
             this.axios.post('http://10.1.9.54:9200/daily/userinfo/findUserByParams',
             qs.stringify(
                 {
                     name:  this.$data.name,
-                    role: this.$data.role,
+                    roleName: this.$data.role,
                     gender: this.$data.gender,
-                    dept: this.$data.dept,
+                    deptName: this.$data.dept,
                     }
                     )
             )
@@ -110,7 +111,7 @@ export default {
             this.deptId = id
         }
     },mounted(){
-            var myToken = window.localStorage.getItem('token')
+            myToken = window.localStorage.getItem('token')
             this.axios.defaults.headers.common['tk-token'] = myToken
             this.axios.post('http://10.1.9.54:9200/daily/userinfo/findAllUserInfo')
             .then(res => {
