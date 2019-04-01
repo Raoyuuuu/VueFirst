@@ -125,7 +125,7 @@ import qs from 'qs'
         },mounted(){
             var myToken = window.localStorage.getItem('token')
             this.axios.defaults.headers.common['tk-token'] = myToken
-            this.axios.post('http://10.1.9.54:9200/daily/weeklyinfo/findByUserId',
+            this.axios.post('http://10.1.9.54:9200/daily/weeklyinfo/showWeeklyInfo',
             //this.axios.post('http://10.1.9.53:9200/daily/dailyinfo/findByUserId',
         qs.stringify({
             userId:this.$store.user
@@ -144,7 +144,7 @@ import qs from 'qs'
                 //      var time = year+month+date
                 //      res.data.data[i].date = time
                 // }
-                this.weekyData = res.data.data
+                this.weekyData = res.data.data.lastWeeklyInfo
                 console.log(this.weekyData)
                 }
             })
