@@ -10,8 +10,8 @@
                         </div>
                         </div>
                     <div class="layout-nav">
-                        <Button class="titleButton" ghost='true' shape="circle" icon="ios-arrow-dropleft" @click="turnUp">返回上级</Button>
-                        <Button class="titleButton" ghost='true' shape="circle" icon="ios-arrow-dropleft" @click="turnIndex">返回首页</Button>
+                        <Button class="titleButton" ghost shape="circle" icon="ios-arrow-dropleft" @click="turnUp">返回上级</Button>
+                        <Button class="titleButton" ghost shape="circle" icon="ios-arrow-dropleft" @click="turnIndex">返回首页</Button>
                     </div>
                 </Menu>
             </Header>
@@ -82,7 +82,7 @@ import ContentBlank from '@/components/reportOperation'
              this.axios.defaults.headers.common['kt-token'] = myToken;
              this.axios.post('http://10.1.9.54:9200/daily/deptinfo/findAll')
              .then(res => {
-                 console.log(res)
+                 //console.log(res)
                  if(res.data.resultCode == '200'){
                      this.department = res.data.data;
                  }
@@ -92,7 +92,7 @@ import ContentBlank from '@/components/reportOperation'
              })
              this.axios.post('http://10.1.9.54:9200//daily/menu/findMenuByUserId')
              .then(res => {
-                 console.log(res)
+                // console.log(res)
                  if(res.data.resultCode == '200'){
                      this.menuItem = res.data.data;
                  }

@@ -98,7 +98,7 @@ export default {
                     )
             )
             .then(res => {
-                console.log(res)
+                //console.log(res)
                 if(res.data.resultCode == '200'){
                     this.personel = res.data.data
                 }
@@ -115,7 +115,7 @@ export default {
             this.axios.defaults.headers.common['tk-token'] = myToken
             this.axios.post('http://10.1.9.54:9200/daily/userinfo/findAllUserInfo')
             .then(res => {
-                console.log(res)
+                //console.log(res)
                 if(res.data.resultCode == '200'){
                     this.personel = res.data.data
                 }
@@ -125,7 +125,7 @@ export default {
             })
             this.axios.post('http://10.1.9.54:9200/daily/deptinfo/findAll')
             .then(res => {
-                console.log(res)
+                //console.log(res)
                 if(res.data.resultCode == '200'){
                     this.department = res.data.data
                 }
