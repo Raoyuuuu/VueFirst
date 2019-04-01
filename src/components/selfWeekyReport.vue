@@ -10,6 +10,11 @@
             日期：<DatePicker type="daterange" style="width: 200px"  @on-change="handleChange" ></DatePicker>
         </div>
         <Button type="default" icon="md-add" @click="clickFn" class="newButton">生成周报</Button>
+        <Select style="width:200px">
+          <Option v-for="item in dateList" :key="item.dateFrom" :value="item.dateTo" @click.native="choose(item.dateFrom,item.dateTo)">
+            {{item.dateFrom}}至{{item.dateTo}}
+            </Option>
+        </Select>
         <Button type="default" icon="md-add" @click="clickAdd" >新增</Button>
         </div>
         <Table border :columns="weekyColumns" :data="weeklyData"></Table>
@@ -103,6 +108,7 @@ import qs from 'qs'
                 ],
                 weeklyData:[],
                 dataValue:[],
+                dateList:[],
                 // data2:null
             }
         },
@@ -127,6 +133,22 @@ import qs from 'qs'
                 })
             },
             remove (index) {
+                var thisWId = this.$data.weeklyData[index].weeklyId
+                console.log(thisWId)
+                this.axios.post('http://10.1.9.54:9200/daily/weeklyinfo/delete',
+                    qs.stringify({
+                        weeklyId:thisWId
+                    })
+                )
+                .then(res => {
+                    console.log(res)
+                    if(res.resultCode == '200'){
+                        alert('操作成功')
+                    }
+                })
+                .catch(err => {
+                    console.error(err); 
+                })
                 this.weeklyData.splice(index, 1);
             },
             clickFn:function(){
@@ -143,49 +165,87 @@ import qs from 'qs'
                     )
                     .then(res => {
                         console.log(res)
+                        this.weeklyData = res.data.data
+                        
                     })
                     .catch(err => {
                         console.error(err); 
                     })
+                }else{
+                    alert('超过七天')
                 }
             },
             clickAdd:function(){
-                this.$router.push('/addNewWeekly')
+                var daF = this.weeklyData[0].dateFrom
+                var daT = this.weeklyData[0].dateTo
+                this.$store.dateF = daF
+                this.$store.dateT = daT
+                if(daF&&daT){
+                    this.$router.push('/addNewWeekly')
+                }
+                else{ 
+                    alert("请先生产周报")
+                    }
+                   
             },
             handleChange(daterange) {
                 this.dataValue = daterange;
             },
+            choose:function(daF,daT){
+                this.axios.post('http://10.1.9.54:9200/daily/weeklyinfo/findByDateAndUserId',
+                    qs.stringify({
+                        userId:userId,
+                        dateFrom:daF,
+                        dateTo:daT
+                    })
+                )
+                .then(res => {
+                    console.log(res)
+                    this.weeklyData = res.data.data
+                })
+                .catch(err => {
+                    console.error(err); 
+                })
+            }
             },
             mounted(){
             var myToken = window.localStorage.getItem('token')
             userId = window.localStorage.getItem('userId')
             var userName = window.localStorage.getItem('username')
             this.axios.defaults.headers.common['tk-token'] = myToken
-             this.axios.post('http://10.1.9.53:9200/daily/weeklyinfo/findByUserId',qs.stringify({
-            userId:userId
-        }))
-        .then(res => {
-            console.log(res)
-            if(res.data.resultCode == '200'){
-                // console.log(res.data.data.length)
-                // for (var i=0;i<res.data.data.length;i++){
-                    
-                //     var da = res.data.data[i].date
-                //      da = new Date(da);
-                //      var year = da.getFullYear()+'年';
-                //      var month = da.getMonth()+1+'月';
-                //      var date = da.getDate()+'日';
-                //      var time = year+month+date
-                //      res.data.data[i].date = time
-                // }
-               this.weeklyData = res.data.data
-                //  this.$store.title = userName+"的日报表"
-                // console.log(this.$store.title)
+                this.axios.post('http://10.1.9.54:9200/daily/weeklyinfo/showWeeklyInfo',
+                    qs.stringify({
+                        userId:userId
+                    })
+                )
+                .then(res => {
+                    console.log(res)
+                    if(res.data.resultCode == '200'){
+                console.log(res.data.data.dateScope.length)
+                for (var i=0;i<res.data.data.dateScope.length;i++){
+                    var daF = res.data.data.dateScope[i].dateFrom
+                    var daT= res.data.data.dateScope[i].dateTo
+                     daF = new Date(daF);
+                     daT = new Date(daT);
+                     var yearF = daF.getFullYear()+'-';
+                     var monthF = daF.getMonth()+1+'-';
+                     var dateF = daF.getDate()+'';
+                     var timeF = yearF+monthF+dateF;
+                     res.data.data.dateScope[i].dateFrom = timeF
+                     var yearT = daT.getFullYear()+'-';
+                     var monthT = daT.getMonth()+1+'-';
+                     var dateT = daT.getDate()+'';
+                     var timeT = yearT+monthT+dateT;
+                     res.data.data.dateScope[i].dateTo = timeT
+                    //  this.$data.dateList.push(timeF+'至'+timeT)
+                  }
+                  this.dateList = res.data.data.dateScope
+                  this.weeklyData = res.data.data.lastWeeklyInfo
                 }
-            })
-            .catch(err => {
-                console.error(err); 
-            })
+                })
+                .catch(err => {
+                    console.error(err); 
+                })
         }
     }
 </script>

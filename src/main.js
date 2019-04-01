@@ -33,6 +33,8 @@ const store = new Vuex.Store({
     reportContentWeek:{},
     uriContent:{},
     title:'null',
+    dateF:'',
+    dateT:''
     // departmentList: [],
   },
   mutations: {

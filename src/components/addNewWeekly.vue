@@ -8,21 +8,23 @@
             </div>
             <div id ="smallSizeInput">
                 <div class = 'smallSize'>
-                    <Select v-model="work" class = 'searchInput' placeholder="选择类别">
+                    <Select v-model="kind" class = 'searchInput' placeholder="选择类别">
+                        <Option v-for="item in planType" :value="item.value" :key="item.value" >{{ item.label }}</Option>
+                    </Select>
+                </div>
+                <div class = 'smallSize'>
+                    项目名称:<i-Input placeholder="" class = 'reportInput' v-model="target"></i-Input>
+                </div>
+                <div class = 'smallSize'>
+                    类别:<Select v-model="projectType" class = 'searchInput' placeholder="选择类别">
                         <Option v-for="item in workType" :value="item.value" :key="item.value" >{{ item.label }}</Option>
                     </Select>
                 </div>
                 <div class = 'smallSize'>
-                    工作内容:<i-Input placeholder="" class = 'reportInput' v-model="content"></i-Input>
+                    当前进度:<i-Input placeholder="" class = 'reportInput' v-model="progress"></i-Input>
                 </div>
                 <div class = 'smallSize'>
-                    工作类别:<i-Input placeholder="" class = 'reportInput' v-model="type"></i-Input>
-                </div>
-                <div class = 'smallSize'>
-                    工作占比:<i-Input placeholder="" class = 'reportInput' v-model="proportion"></i-Input>
-                </div>
-                <div class = 'smallSize'>
-                    完成进度:<i-Input placeholder="" class = 'reportInput' v-model="progress"></i-Input>
+                    预计完成时间:<i-Input placeholder="" class = 'reportInput' v-model="planDate"></i-Input>
                 </div>
             </div>
             <div id ="largeSizeInput">
@@ -30,10 +32,7 @@
                     内容描述:<Input  type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder=""  v-model="description"/>
                 </div>
                 <div class = 'largeSize'>
-                    完成情况以及处理方法:<Input  type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder=""  v-model="situation"/>
-                </div>
-                <div class = 'largeSize'>
-                    遗留问题:<Input  type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder=""  v-model="problem"/>
+                    未完成原因:<Input  type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder=""  v-model="reason"/>
                 </div>
             </div>
         </div>
@@ -44,25 +43,42 @@
 import axios from 'axios'
 import qs from 'qs'
 
+var daF 
+var daT
+var time
+var timeT
 export default {
     data(){
         return{
+            dataValue:[],
+            kind:null,
             userId:null,
-            content:null,
-            type:null,
-            proportion:null,
+
+            target:null,
+            projectType:null,
             progress:null,
+            planDate:null,
             description:null,
-            situation:null,
-            problem:null,
-            time:null,
-            work:null,
-            workType:[{
+            reason:null,
+
+            // time:null,
+       
+            planType:[{
                 value: '本周工作',
-                label: '本周工作'
+                label: '本周工作'   
             },{
                 value: '下周计划',
                 label: '下周计划'
+            }],
+            workType:[{
+                value: '项目维护',
+                label: '项目维护'   
+            },{
+                value: '项目开发',
+                label: '项目开发'
+            },{
+                value: '产品研发',
+                label: '产品研发'
             }],
         }
     },
@@ -77,17 +93,20 @@ export default {
             this.problem = null
         },
         addReport:function(){
-            this.axios.post('http://10.1.9.54:9200/daily/dailyinfo/save',
-                qs.stringify({
+            
+            this.axios.post('http://10.1.9.54:9200/daily/weeklyinfo/save',
+                qs.stringify({ 
+                    kindStr:this.$data.kind,
                     userId:this.$data.userId,
+                    dateF:time,
+                    dateT:timeT,
                     // date:this.$data.time,
-                    content:this.$data.content,
-                    type:this.$data.type,
-                    proportion:this.$data.proportion,
+                    target:this.$data.target,
+                    projectType:this.$data.projectType,
+                    planDate:this.$data.planDate,
                     progress:this.$data.progress,
                     description:this.$data.description,
-                    situation:this.$data.situation,
-                    problem:this.$data.problem,
+                    reason:this.$data.reason,
                 })
             )
             .then(res => {
@@ -100,19 +119,36 @@ export default {
             .catch(err => {
                 console.error(err); 
             })
-        }
+        },
+        handleChange(daterange) {
+                this.dataValue = daterange;
+            },
+
     },
     mounted(){
+        console.log(this.$store.dateF+' '+this.$store.dateT)
+
         var myToken = window.localStorage.getItem('token')
-        // var da = new Date().getTime()
-        // da = new Date(da);
-        // var year = da.getFullYear()+'-';
-        // var month = da.getMonth()+1+'-';
-        // var date = da.getDate();
-        // var time = year+month+date
-        // this.time = da
-        this. userId = window.localStorage.getItem('userId')
-        // console.log(this.$data.time)
+        daF = new Date(this.$store.dateF)
+        var year = daF.getFullYear()+'-';
+        var month = daF.getMonth()+1+'-';
+        var date = daF.getDate();
+        time = year+month+date
+        console.log(time)
+        
+        daT = new Date(this.$store.dateT)
+
+        var yearT = daT.getFullYear()+'-';
+        var monthT = daT.getMonth()+1+'-';
+        var dateT = daT.getDate();
+        timeT = yearT+monthT+dateT
+        console.log(timeT)
+        
+        this.userId = window.localStorage.getItem('userId')
+        
+        if(this.$store.dataValue){
+            this.dataValue = this.$store.dataValue
+        }
         
         this.axios.defaults.headers.common['tk-token'] = myToken
     },
@@ -147,7 +183,7 @@ export default {
     .report{
         width: 100%;
         position: relative;
-        height: 364px;
+        height: 464px;
         top: 49px;
         border: rgba(165, 165, 165, 0.904) 2px solid;
     }

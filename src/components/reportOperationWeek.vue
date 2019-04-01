@@ -13,25 +13,24 @@
                     项目名称:<i-Input placeholder="" class = 'reportInput' v-model="reportContentWeek.target"></i-Input>
                 </div>
                 <div class = 'smallSize'>
-                    项目类别:<i-Input placeholder="" class = 'reportInput' v-model="reportContentWeek.projectType"></i-Input>
-                </div>
-                <div class = 'smallSize'>
-                    内容描述:<i-Input placeholder="" class = 'reportInput' v-model="reportContentWeek.description"></i-Input>
+                    类别:<Select v-model="reportContentWeek.projectType" class = 'searchInput' placeholder="选择类别">
+                        <Option v-for="item in workType" :value="item.value" :key="item.value" >{{ item.label }}</Option>
+                    </Select>
                 </div>
                 <div class = 'smallSize'>
                     当前进度:<i-Input placeholder="" class = 'reportInput' v-model="reportContentWeek.progress"></i-Input>
                 </div>
+                <div class = 'smallSize'>
+                    预计完成时间:<i-Input placeholder="" class = 'reportInput' v-model="reportContentWeek.planDate"></i-Input>
+                </div>
             </div>
             <div id ="largeSizeInput">
                 <div class = 'largeSize'>
-                    预计完成时间:<Input  type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder=""  v-model="reportContentWeek.planDate"/>
+                    内容描述:<Input  type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder=""  v-model="reportContentWeek.description"/>
                 </div>
                 <div class = 'largeSize'>
                     未完成原因:<Input  type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder=""  v-model="reportContentWeek.reason"/>
                 </div>
-                <!-- <div class = 'largeSize'>
-                    遗留问题:<Input  type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder=""  v-model="reportContentWeek.problem"/>
-                </div>  -->
             </div>
         </div>
     </div>
@@ -51,7 +50,17 @@ import qs from 'qs'
 export default {
     data(){
         return{
-            reportContentWeek:this.$store.reportContentWeek
+            reportContentWeek:this.$store.reportContentWeek,
+            workType:[{
+                value: '项目维护',
+                label: '项目维护'   
+            },{
+                value: '项目开发',
+                label: '项目开发'
+            },{
+                value: '产品研发',
+                label: '产品研发'
+            }],
         }
     },
     methods:{
