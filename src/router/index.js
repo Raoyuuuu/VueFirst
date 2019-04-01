@@ -28,6 +28,7 @@ import roleManagement from "@/components/RoleManagement";
 import powerAndMenu from "@/components/PowerAndMenu";
 import powerAndUrl from "@/components/PowerAndUrl";
 import transfer from '@/components/Transfer'
+import addNewWeekly from '@/components/addNewWeekly'
 
 // import dateSelectWithButton from '@/components/DateDemo2'
 // import dateSelect from '@/components/DateDemo'
@@ -160,7 +161,11 @@ export default new Router({
           path:'/addWeekReport',
           name:'addWeekReport',
           component:addWeekReport
-      }
+      },{
+        path: '/addNewWeekly',
+        name: 'addNewWeekly',
+        component:addNewWeekly
+    },
     
     ]
         },
