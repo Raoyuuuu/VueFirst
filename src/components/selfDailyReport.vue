@@ -110,19 +110,36 @@ import qs from 'qs'
                 })
             },
             remove (index) {
+                var thisDId = this.$data.dailyData[index].dailyId
+                console.log(thisDId)
+                this.axios.post('http://10.1.9.53:9200/daily/dailyinfo/delByDailyId',
+                    qs.stringify({
+                        dailyId: thisDId
+                    })
+                )
+                .then(res => {
+                    console.log(res)
+                    if(res.data.resultCode == '200'){
+                        alert('操作成功')
+                    }
+                })
+                .catch(err => {
+                    console.error(err); 
+                })
                 this.dailyData.splice(index, 1);
             },
             clickFn:function(){
                 this.$router.push('/addReport')
             }
-        },mounted(){
+        },
+        mounted(){
             var myToken = window.localStorage.getItem('token')
             var userId = window.localStorage.getItem('userId')
             var userName = window.localStorage.getItem('username')
             this.axios.defaults.headers.common['tk-token'] = myToken
              this.axios.post('http://10.1.9.54:9200/daily/dailyinfo/findByUserId',qs.stringify({
             userId:userId
-        }))
+            }))
         .then(res => {
             console.log(res)
             if(res.data.resultCode == '200'){

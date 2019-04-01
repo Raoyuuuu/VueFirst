@@ -142,7 +142,7 @@ import qs from 'qs'
                 )
                 .then(res => {
                     console.log(res)
-                    if(res.resultCode == '200'){
+                    if(res.data.resultCode == '200'){
                         alert('操作成功')
                     }
                 })
