@@ -133,7 +133,7 @@ export default {
   },
   methods: {
     show(index) {
-      console.log(this.$data.dailyData[index].dailyId);
+      //console.log(this.$data.dailyData[index].dailyId);
       this.axios
         .post(
           "http://10.1.9.54:9200/daily/dailyinfo/findByDailyId",
@@ -147,7 +147,7 @@ export default {
             this.$router.push("/reportOperation");
           }
 
-          console.log(res);
+          //console.log(res);
         })
         .catch(err => {
           console.error(err);
@@ -180,7 +180,7 @@ export default {
           })
         )
         .then(res => {
-          console.log(res);
+          //console.log(res);
           if (res.data.resultCode == "200") {
             for (var i = 0; i < res.data.data.length; i++) {
             var da = res.data.data[i].date;
@@ -192,7 +192,7 @@ export default {
             res.data.data[i].date = time;
           }
           this.dailyData = res.data.data;
-            console.log( res.data.data)
+            //console.log( res.data.data)
           }
         })
         .catch(err => {
@@ -211,7 +211,7 @@ export default {
         })
       )
       .then(res => {
-        console.log(res);
+        //console.log(res);
         if (res.data.resultCode == "200") {
           // console.log(res.data.data.length)
           for (var i = 0; i < res.data.data.length; i++) {

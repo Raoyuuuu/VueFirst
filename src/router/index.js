@@ -53,7 +53,7 @@ export default new Router({
             component: Hello,
             children: [{
                 path: '/week',
-                name: 'weekReport',
+                name: 'tableList',
                 component:tableList
             }
         ]
@@ -169,15 +169,15 @@ export default new Router({
     
     ]
         },
-        {
-            path: '/weekReport',
-            name: 'weekReport',
-            component:weekReport
-        },
-        {
-            path: '/welcome',
-            name: 'welcome',
-            component:welcomePage
-        },
+        // {
+        //     path: '/weekReport',
+        //     name: 'weekReport',
+        //     component:weekReport
+        // },
+        // {
+        //     path: '/welcome',
+        //     name: 'welcome',
+        //     component:welcomePage
+        // },
     ]
 })
