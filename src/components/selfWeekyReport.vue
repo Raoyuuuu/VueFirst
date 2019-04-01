@@ -2,8 +2,15 @@
     <div>
         <!-- <Button type="primary" @click="clickFn">编辑</Button> -->
     <div class="addButton">
-        <Button type="default" icon="md-add" @click="clickFn" >新增</Button>
-        <!-- <Button type="primary">撤回</Button> -->
+        
+        <!-- <div class="dateleft">
+            到：<DatePicker type="date" style="width: 200px" v-model="data2"></DatePicker>
+        </div> -->
+        <div class="dateleft">
+            日期：<DatePicker type="daterange" style="width: 200px"  @on-change="handleChange" ></DatePicker>
+        </div>
+        <Button type="default" icon="md-add" @click="clickFn" class="newButton">生成周报</Button>
+        <Button type="default" icon="md-add" @click="clickAdd" >新增</Button>
         </div>
         <Table border :columns="weekyColumns" :data="weeklyData"></Table>
     </div>
@@ -12,7 +19,7 @@
 <script>
 import axios from 'axios'
 import qs from 'qs'
-
+ var userId
     export default {
         data () {
             return {
@@ -94,7 +101,9 @@ import qs from 'qs'
                         }
                     }
                 ],
-                weeklyData:[]
+                weeklyData:[],
+                dataValue:[],
+                // data2:null
             }
         },
         methods: {
@@ -121,11 +130,35 @@ import qs from 'qs'
                 this.weeklyData.splice(index, 1);
             },
             clickFn:function(){
-                this.$router.push('/addWeekReport')
-            }
-        },mounted(){
+                var d1 = new Date(this.dataValue[0])
+                var d2 =  new Date(this.dataValue[1])
+                var diff = (d2-d1)/1000/3600/24
+                if(diff <= 7){
+                    this.axios.post('http://10.1.9.54:9200/daily/weeklyinfo/editWeeklyInfo',
+                        qs.stringify({
+                            userId:userId,
+                            dateFrom:this.dataValue[0],
+                            dateTo:this.dataValue[1]
+                        })
+                    )
+                    .then(res => {
+                        console.log(res)
+                    })
+                    .catch(err => {
+                        console.error(err); 
+                    })
+                }
+            },
+            clickAdd:function(){
+                this.$router.push('/addNewWeekly')
+            },
+            handleChange(daterange) {
+                this.dataValue = daterange;
+            },
+            },
+            mounted(){
             var myToken = window.localStorage.getItem('token')
-            var userId = window.localStorage.getItem('userId')
+            userId = window.localStorage.getItem('userId')
             var userName = window.localStorage.getItem('username')
             this.axios.defaults.headers.common['tk-token'] = myToken
              this.axios.post('http://10.1.9.53:9200/daily/weeklyinfo/findByUserId',qs.stringify({
@@ -162,5 +195,13 @@ import qs from 'qs'
         margin-right: 10px;
         margin-bottom: 10px;
         margin-top: 10px
+    }
+    .newButton{
+        float: left;
+        margin-left: 15px;
+    }
+    .dateleft{
+        float: left;
+        padding-left: 15px;
     }
 </style>
