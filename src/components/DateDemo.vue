@@ -41,57 +41,17 @@ export default {
     choose:function(form,to){
       this.dateFrom = form
       this.dateTo = to
-      // console.log(this.dateFrom + "  " +this.dateTo)
     },
     ontPut:function(){
-      var myHerf = 'http://10.1.9.53:9200/daily/weeklyinfo/export?userId='
+      var myHerf = 'http://10.1.9.54:9200/daily/weeklyinfo/export?userId='
       +this.$store.user+'&dateFrom='+this.$data.dateFrom+'&dateTo='+this.$data.dateTo;
-      // console.log(myHerf)
       window.location.href=myHerf
-      // console.log(this.$store.user)
-      // this.axios.defaults.responseType = 'arraybuffer'
-      // this.axios.post('http://10.1.9.53:9200/daily/weeklyinfo/exportPost',
-      //   qs.stringify({
-      //     userId:this.$store.user,
-      //     dateFrom:this.$data.dateFrom,
-      //     dateTo:this.$data.dateTo,
-          
-      //   })
-      // )
-      // .then(res => {
-      //   console.log(res)
-      //   // debugger
-      //   const blob = new Blob( [res], {type: 'application/octet-stream'} )
-      //     // const fileName = "";
-      //     const filename = this.$data.dateFrom + '-' + this.$data.dateTo+"报表信息.xls";
-      //     if ("download" in document.createElement("a")) {
-      //       // 非IE下载
-      //       const elink = document.createElement("a");
-      //       elink.download = filename;
-      //       elink.style.display = "none";
-      //       elink.href = URL.createObjectURL(blob);
-      //       document.body.appendChild(elink);
-      //       elink.click();
-      //       URL.revokeObjectURL(elink.href); // 释放URL 对象
-      //       document.body.removeChild(elink);
-      //     } else {
-      //       // IE10+下载
-      //       navigator.msSaveBlob(blob, filename);
-      //     }
-
-      // })
-      // .catch(err => {
-      //   console.error(err); 
-      // })
     }
   },
   mounted(){
     var myToken = window.localStorage.getItem('token')
     var myId = this.$store.user
-    // console.log(myId)
     this.axios.defaults.headers['tk-token'] = myToken
-    // this.axios.defaults.headers.common['Content-Type']= 'application/vnd.ms-excel'
-    // debugger
     this.axios.post('http://10.1.9.54:9200/daily/weeklyinfo/showWeeklyInfo',
       qs.stringify({
         userId:myId
@@ -100,7 +60,6 @@ export default {
     .then(res => {
       console.log(res)
       if(res.data.resultCode == '200'){
-                // console.log(res.data.data.dateScope.length)
                 for (var i=0;i<res.data.data.dateScope.length;i++){
                     var daF = res.data.data.dateScope[i].dateFrom
                     var daT= res.data.data.dateScope[i].dateTo
@@ -116,10 +75,8 @@ export default {
                      var dateT = daT.getDate()+'';
                      var timeT = yearT+monthT+dateT;
                      res.data.data.dateScope[i].dateTo = timeT
-                    //  this.$data.dateList.push(timeF+'至'+timeT)
                   }
                   this.dateList = res.data.data.dateScope
-                  // console.log(this.$data.dateList)
           }
     })
     .catch(err => {

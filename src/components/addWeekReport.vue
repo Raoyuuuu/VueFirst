@@ -27,9 +27,6 @@
                 <div class = 'largeSize'>
                     未完成原因:<Input  type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder=""  v-model="reason"/>
                 </div>
-                <!-- <div class = 'largeSize'>
-                    遗留问题:<Input  type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder=""  v-model="problem"/>
-                </div> -->
             </div>
         </div>
     </div>
@@ -49,7 +46,6 @@ export default {
             progress:null,
             planDate:null,
             reason:null,
-            //problem:null,
             time:null,
         }
     },
@@ -61,20 +57,17 @@ export default {
             this.progress = null
             this.planDate = null
             this.reason = null
-            //this.problem = null
         },
         addReport:function(){
-            this.axios.post('http://10.1.9.53:9200/daily/weeklyinfo/save',
+            this.axios.post('http://10.1.9.54:9200/daily/weeklyinfo/save',
                 qs.stringify({
                     userId:this.$data.userId,
-                    // date:this.$data.time,
                     target:this.$data.target,
                     type:this.$data.type,
                     description:this.$data.description,
                     progress:this.$data.progress,
                     planDate:this.$data.planDate,
                     reason:this.$data.reason,
-                   // problem:this.$data.problem,
                 })
             )
             .then(res => {
@@ -93,10 +86,6 @@ export default {
         var myToken = window.localStorage.getItem('token')
         var da = new Date().getTime()
         da = new Date(da);
-        // var year = da.getFullYear()+'-';
-        // var month = da.getMonth()+1+'-';
-        // var date = da.getDate();
-        // var time = year+month+date
         this.time = da
         this. userId = window.localStorage.getItem('userId')
         console.log(this.$data.time)

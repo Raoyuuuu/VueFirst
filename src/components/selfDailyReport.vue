@@ -112,7 +112,7 @@ import qs from 'qs'
             remove (index) {
                 var thisDId = this.$data.dailyData[index].dailyId
                 console.log(thisDId)
-                this.axios.post('http://10.1.9.53:9200/daily/dailyinfo/delByDailyId',
+                this.axios.post('http://10.1.9.54:9200/daily/dailyinfo/delByDailyId',
                     qs.stringify({
                         dailyId: thisDId
                     })

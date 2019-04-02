@@ -1,10 +1,12 @@
 <template>
-<div>
-        User:<input type="name" name = "name" v-model="username"/>
+<div class = 'login'>
+        <!-- User:<input type="name" name = "name" v-model="username"/> -->
+        <Input prefix="ios-contact" type="text" placeholder="Enter name" style="width: auto" v-model="username"/>
         <br/>
-        password:<input type="password" name = "password" v-model="password"/>
+        <Input class = 'loginpassword' prefix="md-lock" type="password" placeholder="Enter password" style="width: auto" v-model="password" @on-enter="clickFn"/>
+        <!-- password:<input type="password" name = "password" v-model="password"/> -->
         <br/>
-        <button @click="clickFn">Login</button>       
+        <Button @click="clickFn">Login</Button>       
 </div>
 </template>
 
@@ -21,12 +23,6 @@ export default {
         }
     },
     methods: {
-        
-        // jump(){
-        //     // alert("You wanna to Loginning");
-        //     var flag = document.getElementById('user').value;
-        //     window.location.host('/#/layout?username='+flag);
-        // }
             clickFn:function(){
                 var username1 = this.$data.username;
                 var password1 = this.$data.password;
@@ -56,5 +52,11 @@ export default {
 </script>
 
 <style>
-
+    .login{
+        margin-top: 20%
+    }
+    .loginpassword{
+        margin-bottom: 15px;
+        margin-top: 15px
+    }
 </style>

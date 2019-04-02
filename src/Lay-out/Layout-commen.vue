@@ -10,8 +10,8 @@
                         </div>
                         </div>
                     <div class="layout-nav">
-                        <Button class="titleButton" ghost shape="circle" icon="ios-arrow-dropleft" @click="turnUp">返回上级</Button>
-                        <Button class="titleButton" ghost shape="circle" icon="ios-arrow-dropleft" @click="turnIndex">返回首页</Button>
+                        <Button class="titleButton" color shape="circle" icon="ios-arrow-dropleft" @click="turnUp" ghost>返回上级</Button>
+                        <Button class="titleButton"  shape="circle" icon="ios-arrow-dropleft" @click="turnIndex" ghost>返回首页</Button>
                     </div>
                 </Menu>
             </Header>
@@ -46,7 +46,7 @@
 import axios from 'axios'
 import qs from 'qs'
 import statusBar from '@/head/StatusBar'
-import Table from '@/components/Table'
+
 import ContentBlank from '@/components/reportOperation'
 
 
@@ -54,7 +54,7 @@ import ContentBlank from '@/components/reportOperation'
     export default {
          components:{
              statusBar,
-             Table,
+
              ContentBlank,
             //  ContentBlankWeek
          },

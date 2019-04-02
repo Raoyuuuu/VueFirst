@@ -64,7 +64,7 @@
                         <BreadcrumbItem>standing by</BreadcrumbItem>
                     </Breadcrumb>
                     <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
-                        <Table></Table>
+                  
                     </Content>
                 </Layout>
             </Layout>
@@ -74,13 +74,13 @@
 </template>
 <script>
 import statusBar from '@/head/StatusBar'
-import Table from '@/components/Table'
+
 
 
     export default {
          components:{
              statusBar,
-             Table
+
          },
          data(){
              return{
