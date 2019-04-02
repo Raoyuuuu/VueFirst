@@ -115,7 +115,7 @@ var myId
               var myToken = window.localStorage.getItem('token')
               this.axios.defaults.headers["Content-Type"]='application/json;charset=UTF-8'
               this.axios.defaults.headers.common['kt-token'] = myToken
-              this.axios.post("http://10.1.9.53:9200/daily/power/savePowerAndUris",params).then(res =>{
+              this.axios.post("http://10.1.9.54:9200/daily/power/savePowerAndUris",params).then(res =>{
                   if(res.data.resultCode == '200'){
                      console.log('保存成功')
                   }
@@ -130,7 +130,7 @@ var myId
     mounted(){
             var myToken = window.localStorage.getItem('token')
             this.axios.defaults.headers.common['kt-token'] =myToken
-            this.axios.post('http://10.1.9.53:9200/daily/power/findPowerUris')
+            this.axios.post('http://10.1.9.54:9200/daily/power/findPowerUris')
             .then(res => {
                 if(res.data.resultCode == '200'){
                     this.power = res.data.data

@@ -136,7 +136,7 @@ export default {
     show(index) {
       this.axios
         .post(
-          "http://10.1.9.53:9200/daily/weeklyinfo/findByUserId",
+          "http://10.1.9.54:9200/daily/weeklyinfo/findByUserId",
           qs.stringify({
             weeklyId: this.$data.weekyData[index].weeklyId
           })
@@ -160,7 +160,7 @@ export default {
       console.log(this.dateTo);
       var myToken = window.localStorage.getItem('token')
       this.axios.defaults.headers.common['tk-token'] = myToken
-      this.axios.post('http://10.1.9.53:9200/daily/dailyinfo/findByUserIdAndDate',
+      this.axios.post('http://10.1.9.54:9200/daily/dailyinfo/findByUserIdAndDate',
             qs.stringify(
                 {
                     userId:this.$store.user,
@@ -189,7 +189,7 @@ export default {
     },
     ontPut: function() {
       var myHerf =
-        "http://10.1.9.53:9200/daily/weeklyinfo/export?userId=" +
+        "http://10.1.9.54:9200/daily/weeklyinfo/export?userId=" +
         this.$store.user +
         "&dateFrom=" +
         this.$data.dateFrom +

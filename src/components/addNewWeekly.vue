@@ -60,8 +60,6 @@ export default {
             planDate:null,
             description:null,
             reason:null,
-
-            // time:null,
        
             planType:[{
                 value: '本周工作',
@@ -100,7 +98,6 @@ export default {
                     userId:this.$data.userId,
                     dateF:time,
                     dateT:timeT,
-                    // date:this.$data.time,
                     target:this.$data.target,
                     projectType:this.$data.projectType,
                     planDate:this.$data.planDate,

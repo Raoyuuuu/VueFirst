@@ -4,8 +4,7 @@
     <div span="12">
       <div class="dateleft">
         日期从：
-        <DatePicker type="datetime" placeholder="2019/1/1" style="width: 200px" v-model="beginTime" format="yyyy-MM-dd"  @on-change="beginTime=$event" >
-                </Date-picker></DatePicker>
+        <DatePicker type="datetime" placeholder="2019/1/1" style="width: 200px" v-model="beginTime" format="yyyy-MM-dd"  @on-change="beginTime=$event" />
       </div>
       <div class="dateleft">
         到：
@@ -172,7 +171,7 @@ export default {
       this.axios.defaults.headers.common["tk-token"] = myToken;
       this.axios
         .post(
-          "http://10.1.9.53:9200/daily/dailyinfo/findByUserIdAndDate",
+          "http://10.1.9.54:9200/daily/dailyinfo/findByUserIdAndDate",
           qs.stringify({
             userId: this.$store.user,
             dateFrom: this.$data.beginTime,
@@ -205,7 +204,7 @@ export default {
     this.axios.defaults.headers.common["tk-token"] = myToken;
     this.axios
       .post(
-        "http://10.1.9.53:9200/daily/dailyinfo/findByUserId",
+        "http://10.1.9.54:9200/daily/dailyinfo/findByUserId",
         qs.stringify({
           userId: this.$store.user
         })

@@ -67,7 +67,6 @@ export default {
             this.axios.post('http://10.1.9.54:9200/daily/dailyinfo/save',
                 qs.stringify({
                     userId:this.$data.userId,
-                    // date:this.$data.time,
                     content:this.$data.content,
                     type:this.$data.type,
                     proportion:this.$data.proportion,
@@ -93,10 +92,6 @@ export default {
         var myToken = window.localStorage.getItem('token')
         var da = new Date().getTime()
         da = new Date(da);
-        // var year = da.getFullYear()+'-';
-        // var month = da.getMonth()+1+'-';
-        // var date = da.getDate();
-        // var time = year+month+date
         this.time = da
         this. userId = window.localStorage.getItem('userId')
         console.log(this.$data.time)

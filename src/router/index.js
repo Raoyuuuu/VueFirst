@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Hello from '@/components/HelloWorld'
-import tableList from '@/components/Table'
 import statusBar from '@/head/StatusBar'
 import layOut from '@/Lay-out/Layout-view'
 import layOutCom from '@/Lay-out/Layout-commen'
@@ -47,16 +46,6 @@ export default new Router({
             //     requiresAuth: true 
             // }
 
-        },{
-            path: '/hello',
-            name: 'HelloWorld',
-            component: Hello,
-            children: [{
-                path: '/week',
-                name: 'tableList',
-                component:tableList
-            }
-        ]
         },{
             path: '/index',
             name: 'statusBar',
