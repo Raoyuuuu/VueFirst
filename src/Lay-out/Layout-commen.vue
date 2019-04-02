@@ -10,8 +10,8 @@
                         </div>
                         </div>
                     <div class="layout-nav">
-                        <Button class="titleButton" ghost shape="circle" icon="ios-arrow-dropleft" @click="turnUp">返回上级</Button>
-                        <Button class="titleButton" ghost shape="circle" icon="ios-arrow-dropleft" @click="turnIndex">返回首页</Button>
+                        <Button class="titleButton"  shape="circle" icon="ios-arrow-dropleft" @click="turnUp">返回上级</Button>
+                        <Button class="titleButton"  shape="circle" icon="ios-arrow-dropleft" @click="turnIndex">返回首页</Button>
                     </div>
                 </Menu>
             </Header>
