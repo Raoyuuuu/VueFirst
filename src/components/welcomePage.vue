@@ -18,7 +18,7 @@
  .welcomeUser{
      height: 280px;
      text-align: center;
-     padding-top:100px;
+     padding-top:10%;
      font-size:40px;
      color:rgba(165, 165, 165, 0.904)
  }

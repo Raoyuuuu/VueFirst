@@ -29,6 +29,8 @@ import powerAndUrl from "@/components/PowerAndUrl";
 import transfer from '@/components/Transfer'
 import addNewWeekly from '@/components/addNewWeekly'
 
+import menu from "@/Lay-out/menuItem"
+
 // import dateSelectWithButton from '@/components/DateDemo2'
 // import dateSelect from '@/components/DateDemo'
 
@@ -158,11 +160,11 @@ export default new Router({
     
     ]
         },
-        // {
-        //     path: '/weekReport',
-        //     name: 'weekReport',
-        //     component:weekReport
-        // },
+        {
+            path: '/menu',
+            name: 'menu',
+            component:menu
+        },
         // {
         //     path: '/welcome',
         //     name: 'welcome',

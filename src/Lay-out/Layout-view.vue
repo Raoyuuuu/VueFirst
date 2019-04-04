@@ -1,130 +1,268 @@
 <template>
-    <div class="layout">
-        <statusBar></statusBar>
-        <Layout>
-            <Header>
-                <Menu mode="horizontal" theme="dark" active-name="1">
-                    <div class="layout-logo">
-                        <div class="title">
-                            工作报表
-                        </div>
-                        </div>
-                    <div class="layout-nav">
-                        <MenuItem name="1" class="item">
-                            <Icon type="ios-navigate"></Icon>
-                            日工作汇报
-                        </MenuItem>
-                        <MenuItem name="2" class="item">
-                            <Icon type="ios-keypad"></Icon>
-                            周工作汇报
-                        </MenuItem>
-                        <MenuItem name="3" class="item">
-                            <Icon type="ios-analytics"></Icon>
-                            人员查看
-                        </MenuItem>
-                        <!-- <MenuItem name="4">
-                            <Icon type="ios-paper"></Icon>
-                            Item 4
-                        </MenuItem> -->
-                    </div>
-                </Menu>
-            </Header>
-            <Layout>
-                <Sider hide-trigger :style="{background: '#fff'}">
-                    <Menu active-name="1-2" theme="light" width="auto" :open-names="['1']">
-                        <Submenu name="1">
-                            <template slot="title">
-                                <Icon type="ios-navigate"></Icon>
-                                部门
-                            </template>
-                            <MenuItem name="1-1">软件部</MenuItem>
-                            <MenuItem name="1-2">财务部</MenuItem>
-                            <MenuItem name="1-3">人力资源部</MenuItem>
-                        </Submenu>
-                        <!-- <Submenu name="2">
-                            <template slot="title">
-                                <Icon type="ios-keypad"></Icon>
-                                Item 2
-                            </template>
-                            <MenuItem name="2-1">Option 1</MenuItem>
-                            <MenuItem name="2-2">Option 2</MenuItem>
-                        </Submenu>
-                        <Submenu name="3">
-                            <template slot="title">
-                                <Icon type="ios-analytics"></Icon>
-                                Item 3
-                            </template>
-                            <MenuItem name="3-1">Option 1</MenuItem>
-                            <MenuItem name="3-2">Option 2</MenuItem>
-                        </Submenu> -->
-                    </Menu>
-                </Sider>
-                <Layout :style="{padding: '0 24px 24px'}">
-                    <Breadcrumb :style="{margin: '24px 0'}" class="">
-                        <BreadcrumbItem>standing by</BreadcrumbItem>
-                    </Breadcrumb>
-                    <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
-                  
-                    </Content>
-                </Layout>
-            </Layout>
-        </Layout>
-        
+    <div class='treeDiv'>
+    <Modal
+        v-model="modal6"
+        title="Title"
+        @on-ok="append2">
+        菜单名称:<Input prefix="ios-contact" type="text"  style="width: auto" v-model="menuName"/>
+        <br/>
+        菜单链接:<Input class = 'loginpassword' prefix="md-lock" type="text"  style="width: auto" v-model="menuUrl"/>
+        <!-- password:<input type="password" name = "password" v-model="password"/> -->
+        <br/>
+    </Modal>
+    <Modal
+        v-model="modal7"
+        title="Title"
+        @on-ok="upDate">
+        菜单名称:<Input prefix="ios-contact" type="text"  style="width: auto" v-model="menuName"/>
+        <br/>
+        菜单链接:<Input class = 'loginpassword' prefix="md-lock" type="text"  style="width: auto" v-model="menuUrl"/>
+        <!-- password:<input type="password" name = "password" v-model="password"/> -->
+        <br/>
+    </Modal>
+    <Tree :data="data5" :render="renderContent" class="tree" ></Tree>
     </div>
 </template>
+<style>
+ .tree{
+     text-align: left
+ }
+ .treeDiv{
+     margin-left:10%
+ }
+</style>
+
 <script>
-import statusBar from '@/head/StatusBar'
+import axios from 'axios'
+import qs from 'qs'
 
-
-
+var nodeKey
+var dataTemp = []
+var thisMenuId
     export default {
-         components:{
-             statusBar,
+        data () {
+            return {
+                data5: [
+                     {
+                        title: '功能菜单',
+                        expand: true,
+                        menuId:'0',
+                        render: (h, { root, node, data }) => {
+                            return h('span', {
+                                style: {
+                                    display: 'inline-block',
+                                    width: '100%'
+                                }
+                            }, [
+                                h('span', {
+                                    style: {
+                                    width: '120px',
+                                    display: 'inline-block',
+                            }
+                        
+                                },[
+                                    h('Icon', {
+                                        props: {
+                                            type: 'ios-folder-outline'
+                                        },
+                                        style: {
+                                            marginRight: '8px'
+                                        }
+                                    }),
+                                    h('span', data.title)
+                                ]),
+                                h('span', {
+                                    style: {
+                                        display: 'inline-block',
+                                        // float: 'right',
+                                        marginLeft: '32px'
+                                    }
+                                }, [
+                                    h('Button', {
+                                        props: Object.assign({}, this.buttonProps, {
+                                            icon: 'ios-add',
+                                            type: 'primary'
+                                        }),
+                                        style: {
+                                            width: '64px'
+                                        },
+                                        on: {
+                                            click: () => { this.append(data) }
+                                        }
+                                    })
+                                ])
+                            ]);
+                        },
+                    }
+                ],
+                buttonProps: {
+                    type: 'default',
+                    size: 'small',
+                },
+            
+                modal6: false,
+                modal7: false,
+                menuName:null,
+                menuUrl:null
+            }
+        },
+        methods: {
+            renderContent (h, { root, node, data }) {
+                return h('span', {
+                    style: {
+                        display: 'inline-block',
+                        width: '100%',
+                        // marginLeft:'10%'
+                    }
+                }, [
+                    h('span', {
+                        style: {
+                            width: '100px',
+                            display: 'inline-block',
+                            }
+                        }, [
+                        h('Icon', {
+                            props: {
+                                type: 'ios-paper-outline'
+                            },
+                            style: {
+                                marginLeft: '8px'
+                            }
+                        }),
+                        h('span', data.title),
+                        
+                    ]),
+                    h('span', {
+                        style: {
+                            display: 'inline-block',
+                            // float: '',
+                            marginLeft: '32px'
+                        }
+                    }, [
+                        h('Button', {
+                            props: Object.assign({}, this.buttonProps, {
+                                icon: 'ios-add'
+                            }),
+                            style: {
+                                marginRight: '8px'
+                            },
+                            on: {
+                                click: () => { this.append(data) }
+                            }
+                        }),
+                        h('Button', {
+                            props: Object.assign({}, this.buttonProps, {
+                                icon: 'ios-remove'
+                            }),
+                            style: {
+                                marginRight: '8px'
+                            },
+                            on: {
+                                click: () => { this.remove(root, node, data) }
+                            }
+                        }),
+                        h('Button', {
+                            props: Object.assign({}, this.buttonProps, {
+                                icon: 'ios-apps'
+                            }),
+                            on: {
+                                click: () => { this.show(data) }
+                            }
+                        })
+                    ])
+                ]);
+            },
+            show(data){
+                this.modal7 = true
+                this.menuName = data.menuName
+                this.menuUrl = data.menuUrl
+                thisMenuId = data.menuId
+                dataTemp = data
+            },
+            upDate(){
+                this.axios.post('http://10.1.9.54:9200/daily/menu/updateMenu',
+                    qs.stringify({
+                        menuId:thisMenuId,
+                        menuName:this.$data.menuName,
+                        menuUrl:this.$data.menuUrl
+                    })
+                )
+                .then(res => {
+                    if(res.data.resultCode == '200'){
+                    this.$set(dataTemp, 'title', this.$data.menuName);
+                    // alert('操作成功')
 
-         },
-         data(){
-             return{
-                 username: this.$route.query.username
-             }
-         },
-         mounted(){
-            //  this.data.username = ;
-         }
+                }
+                })
+                .catch(err => {
+                    console.error(err); 
+                })
+            },
+            append (data) {
+                this.modal6 = true
+                nodeKey = data.nodeKey
+                dataTemp = data   
+            },append2 () {
+                const children = dataTemp.children || [];
+                children.push({
+                    title: this.menuName,
+                    menuPid: dataTemp.menuId,
+                    menuName: this.menuName,
+                    menuUrl: this.menuUrl
+                });
+                this.$set(dataTemp, 'children', children);
+                this.axios.post('http://10.1.9.53:9200/daily/menu/addMenu',
+                    qs.stringify({
+                        menuPid: dataTemp.menuId,
+                        menuName: this.menuName,
+                        menuUrl: this.menuUrl
+                    })
+                )
+                .then(res => {
+                    console.log(res)
+                })
+                .catch(err => {
+                    console.error(err); 
+                })
+        
+                
+                
+            },
+            remove (root, node, data) {
+                const parentKey = root.find(el => el === node).parent;
+                const parent = root.find(el => el.nodeKey === parentKey).node;
+                const index = parent.children.indexOf(data);
+                parent.children.splice(index, 1);
+            },
+            setTitle(dataList){
+                var length = dataList.length
+                for(var i=0;i<length;i++){
+                    this.$set(dataList[i],'title',dataList[i].menuName)
+                    if(dataList[i].children){
+                    // console.log('111')
+                    this.setTitle(dataList[i].children)
+                }
+                }
+               
+
+            }
+        },mounted(){
+            var data = []
+            this.axios.defaults.headers['kt-token'] = 'r7udp5ujqrwho10buv6gbfshxua3b4b307y7eo2c0jipzno8c33u6ctfb18qp4xakddjr2a'
+            this.axios.post('http://10.1.9.53:9200/daily/menu/findMenuTree')
+            .then(res => {
+                console.log(res)
+                data = res.data.data
+                this.setTitle(data)
+                this.$set(this.data5[0],'children',data)
+                // debugger
+            })
+            .catch(err => {
+                console.error(err); 
+            })
+            // this.setTitle(data)
+            // debugger
+            // this.$set(this.data5[2],'title','parent 3')
+        }
     }
 </script>
-<style scoped>
-.layout{
-    border: 1px solid #d7dde4;
-    background: #f5f7f9;
-    position: relative;
-    border-radius: 4px;
-    overflow: hidden;
-}
-.layout-logo{
-    width: 100px;
-    height: 30px;
-    background: #5b6270;
-    border-radius: 3px;
-    float: left;
-    position: relative;
-    top: 15px;
-    left: 20px;
-    color: #fff;
-}
-.layout-nav{
-    width: 420px;
-    margin: 0 auto;
-    margin-right: 20px;
-}
-.ivu-menu-dark {
-    width: 100%;
-    background: #515a6e;
-}
-.item{
-    float: right
-}
-.title{
-    position: relative;
-    top: -15px;
-}
-</style>

@@ -34,6 +34,8 @@
 import axios from "axios";
 import qs from "qs";
 
+var myToken
+
 export default {
   data() {
     return {
@@ -189,17 +191,19 @@ export default {
     },
     ontPut: function() {
       var myHerf =
-        "http://10.1.9.54:9200/daily/weeklyinfo/export?userId=" +
+        "http://10.1.9.53:9200/daily/weeklyinfo/export?userId=" +
         this.$store.user +
         "&dateFrom=" +
         this.$data.dateFrom +
         "&dateTo=" +
-        this.$data.dateTo;
+        this.$data.dateTo +
+        "&token=" +
+        myToken;
       window.location.href = myHerf;
     }
   },
   mounted() {
-    var myToken = window.localStorage.getItem('token')
+    myToken = window.localStorage.getItem('token')
     var myId = this.$store.user
     // console.log(myId)
     this.axios.defaults.headers['tk-token'] = myToken
