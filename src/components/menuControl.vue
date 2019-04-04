@@ -2,7 +2,7 @@
     <div class='treeDiv'>
     <Modal
         v-model="modal6"
-        title="Title"
+        title="新增菜单"
         @on-ok="append2">
         菜单名称:<Input prefix="ios-contact" type="text"  style="width: auto" v-model="menuName"/>
         <br/>
@@ -12,7 +12,7 @@
     </Modal>
     <Modal
         v-model="modal7"
-        title="Title"
+        title="编辑菜单"
         @on-ok="upDate">
         菜单名称:<Input prefix="ios-contact" type="text"  style="width: auto" v-model="menuName"/>
         <br/>
@@ -232,7 +232,21 @@ var thisMenuId
                 const parentKey = root.find(el => el === node).parent;
                 const parent = root.find(el => el.nodeKey === parentKey).node;
                 const index = parent.children.indexOf(data);
-                parent.children.splice(index, 1);
+                console.log(data)
+                this.axios.post('http://10.1.9.54:9200/daily/menu/delMenuById',
+                qs.stringify({
+                    menuId:data.menuId
+                }))
+                .then(res => {
+                    console.log(res)
+                    if(res.data.resultCode == '200'){
+                    alert("操作成功")
+                    parent.children.splice(index, 1);
+                    }
+                })
+                .catch(err => {
+                    console.error(err); 
+                })
             },
             setTitle(dataList){
                 var length = dataList.length
