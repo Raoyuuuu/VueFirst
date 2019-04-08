@@ -33,14 +33,17 @@ export default {
                 }))
                 .then(res => {
                     // debugger
-                    console.log(res);
-                    console.log(res.data.data.token);
+                    // console.log(res);
+                    // console.log(res.data.data.token);
                     if(res.data.resultCode == '200'){
                         storage.setItem('username',res.data.data.userInfo.name);
                         storage.setItem('userId',res.data.data.userInfo.userId);
                         storage.setItem('token',res.data.data.token);
                         this.$router.push('/layoutCom');
-           
+                    }else if(res.data.resultCode == '510'){
+                        alert('账号或密码输入错误。')
+                    }else{
+                        alert('与服务器链接超时，请稍后重试。')
                     }
                 })
                 .catch(err => {

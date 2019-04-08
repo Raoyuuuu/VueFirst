@@ -4,9 +4,9 @@
         v-model="modal6"
         title="新增菜单"
         @on-ok="append2">
-        菜单名称:<Input prefix="ios-contact" type="text"  style="width: auto" v-model="menuName"/>
+        菜单名称:<Input prefix="ios-bookmark" type="text"  style="width: auto" v-model="menuName"/>
         <br/>
-        菜单链接:<Input class = 'loginpassword' prefix="md-lock" type="text"  style="width: auto" v-model="menuUrl"/>
+        菜单链接:<Input class = 'loginpassword' prefix="ios-link" type="text"  style="width: auto" v-model="menuUrl"/>
         <!-- password:<input type="password" name = "password" v-model="password"/> -->
         <br/>
     </Modal>
@@ -14,9 +14,9 @@
         v-model="modal7"
         title="编辑菜单"
         @on-ok="upDate">
-        菜单名称:<Input prefix="ios-contact" type="text"  style="width: auto" v-model="menuName"/>
+        菜单名称:<Input prefix="ios-bookmark" type="text"  style="width: auto" v-model="menuName"/>
         <br/>
-        菜单链接:<Input class = 'loginpassword' prefix="md-lock" type="text"  style="width: auto" v-model="menuUrl"/>
+        菜单链接:<Input class = 'loginpassword' prefix="ios-link" type="text"  style="width: auto" v-model="menuUrl"/>
         <!-- password:<input type="password" name = "password" v-model="password"/> -->
         <br/>
     </Modal>
@@ -28,7 +28,7 @@
      text-align: left
  }
  .treeDiv{
-     margin-left:10%
+     margin-left:35%
  }
 </style>
 
@@ -74,8 +74,7 @@ var thisMenuId
                                 h('span', {
                                     style: {
                                         display: 'inline-block',
-                                        // float: 'right',
-                                        marginLeft: '32px'
+                                        marginLeft: '200px'
                                     }
                                 }, [
                                     h('Button', {
@@ -84,7 +83,7 @@ var thisMenuId
                                             type: 'primary'
                                         }),
                                         style: {
-                                            width: '64px'
+                                            width: '98px'
                                         },
                                         on: {
                                             click: () => { this.append(data) }
@@ -136,7 +135,7 @@ var thisMenuId
                         style: {
                             display: 'inline-block',
                             // float: '',
-                            marginLeft: '32px'
+                            marginLeft: '200px'
                         }
                     }, [
                         h('Button', {
@@ -211,7 +210,7 @@ var thisMenuId
                     menuUrl: this.menuUrl
                 });
                 this.$set(dataTemp, 'children', children);
-                this.axios.post('http://10.1.9.53:9200/daily/menu/addMenu',
+                this.axios.post('http://10.1.9.54:9200/daily/menu/addMenu',
                     qs.stringify({
                         menuPid: dataTemp.menuId,
                         menuName: this.menuName,
@@ -264,7 +263,7 @@ var thisMenuId
             var myToken = window.localStorage.getItem('token')
             var data = []
             this.axios.defaults.headers['kt-token'] = myToken
-            this.axios.post('http://10.1.9.53:9200/daily/menu/findMenuTree')
+            this.axios.post('http://10.1.9.54:9200/daily/menu/findMenuTree')
             .then(res => {
                 console.log(res)
                 data = res.data.data

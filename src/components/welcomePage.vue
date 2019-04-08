@@ -5,13 +5,12 @@
 </template>
 
 <script>
-    export default {
+export default {
         data(){
             return{
                 username:window.localStorage.getItem('username')
             }
         }
-        
     }
 </script>
 <style>
