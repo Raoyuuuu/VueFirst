@@ -229,7 +229,7 @@ import qs from 'qs'
                         console.error(err); 
                     })
                 }else{
-                    alert('超过七天')
+                    alert('超过七天，请重新选择')
                 }
             },
             clickAdd:function(){
@@ -241,9 +241,8 @@ import qs from 'qs'
                     this.$router.push('/addNewWeekly')
                 }
                 else{ 
-                    alert("请先生产周报")
+                    alert("检测到空报表，请先生成周报")
                     }
-                   
             },
             handleChange(daterange) {
                 this.dataValue = daterange;
@@ -259,6 +258,7 @@ import qs from 'qs'
                 .then(res => {
                     console.log(res)
                     this.weeklyData = res.data.data
+
                 })
                 .catch(err => {
                     console.error(err); 
@@ -293,7 +293,6 @@ import qs from 'qs'
                      var dateT = daT.getDate()+'';
                      var timeT = yearT+monthT+dateT;
                      res.data.data.dateScope[i].dateTo = timeT
-                    //  this.$data.dateList.push(timeF+'至'+timeT)
                   }
                   this.dateList = res.data.data.dateScope
                   this.weeklyData = res.data.data.lastWeeklyInfo

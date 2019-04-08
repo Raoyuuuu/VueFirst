@@ -45,10 +45,6 @@ var myId
                          
                     },
                     },
-                    // {
-                    //     title: '部门',
-                    //     key: 'department'
-                    // },
                     {
                         title: '权限',
                         key: 'powers',
@@ -116,47 +112,18 @@ var myId
                  roleId:myId,
                  powerIds:this.$store.role
              }
-            //  var params = new URLSearchParams();
-            //   params.append('roleId',myId);
-            //   params.append('powerIds',JSON.stringify(this.$store.role));
               console.log(params)
               var myToken = window.localStorage.getItem('token')
               this.axios.defaults.headers["Content-Type"]='application/json;charset=UTF-8'
               this.axios.defaults.headers.common['kt-token'] = myToken
               this.axios.post("http://10.1.9.54:9200/daily/roleinfo/saveRoleAndPowers",params).then(res =>{
                   if(res.data.resultCode == '200'){
-            //         // this.personel = res.data.data
                      console.log('保存成功')
                      this.load.push('/roleManagement')
                   }
               }).catch(err => {
                  console.error(err); 
              })
-            // var myToken = window.localStorage.getItem('token')
-            // this.axios.defaults.headers.common['kt-token'] = 'e18xyzv1j7n25t98yp8aq4gib1eulkkxzn0sw3esu64k0rpv6hg4sr3gn9hv6kyruotflc6'
-            // this.axios.post('http://10.1.9.53:9200/daily/roleinfo/saveRoleAndPowers',
-            // qs.stringify(
-            //     {
-            //         roleId:myId,
-            //         powerIds:this.$store.role,
-            //         },
-
-                
-
-            //         )
-            // )
-            // .then(res => {
-            //     debugger
-            //     console.log(res)
-            //     if(res.data.resultCode == '200'){
-            //         // this.personel = res.data.data
-            //         console.log('保存成功')
-            //     }
-            // })
-            // .catch(err => {
-            //     console.error(err); 
-            // })
-
             },
             cancel(){
             }
@@ -171,7 +138,6 @@ var myId
                     for(let i=0;i<index.length;i++){
                         var powername = res.data.data[i].role.roleName
                         this.perssionList.push(powername)
-
                         }
                     this.role1 = res.data.data
                 }
@@ -179,16 +145,6 @@ var myId
             .catch(err => {
                 console.error(err); 
             })
-            // this.axios.post('http://10.1.9.50:9200/daily/deptinfo/findAll')
-            // .then(res => {
-            //     console.log(res)
-            //     if(res.data.resultCode == '200'){
-            //         this.department = res.data.data
-            //     }
-            // })
-            // .catch(err => {
-            //     console.error(err); 
-            // })
     }
     }
 </script>
