@@ -1,11 +1,7 @@
 <template>
     <div>
-        <!-- <Button type="primary" @click="clickFn">编辑</Button> -->
     <div class="addButton">
         
-        <!-- <div class="dateleft">
-            到：<DatePicker type="date" style="width: 200px" v-model="data2"></DatePicker>
-        </div> -->
         <div class="dateleft">
             日期：<DatePicker type="daterange" style="width: 200px"  @on-change="handleChange" ></DatePicker>
         </div>
@@ -15,11 +11,29 @@
             {{item.dateFrom}}至{{item.dateTo}}
             </Option>
         </Select>
+
         <Button type="default" icon="md-add" @click="clickAdd" >新增</Button>
         </div>
         <Table border :columns="weekyColumns" :data="weeklyData"></Table>
-    </div>
-    
+        <Modal
+        v-model="modal1"
+        title="Common Modal dialog box title"
+        :mask-closable="false"
+        @on-ok="ok"
+        @on-cancel="cancel">
+        <div>
+            项目名称: <Input v-model="reportContentWeek.target" placeholder="Enter something..." /><br><br>
+            类别: <Select v-model="reportContentWeek.projectType" class = 'searchInput' placeholder="Enter something...">
+                        <Option v-for="item in workType" :value="item.value" :key="item.value" >{{ item.label }}</Option>
+                 </Select><br><br>
+            当前进度: <Input v-model="reportContentWeek.progress" placeholder="Enter something..." /><br><br>
+            预计完成时间: <Input v-model="reportContentWeek.planDate" placeholder="Enter something..." /><br><br>
+            内容描述: <Input v-model="reportContentWeek.description" placeholder="Enter something..." /><br><br>
+            未完成原因: <Input v-model="reportContentWeek.reason" placeholder="Enter something..." /><br><br>
+        </div>
+        </Modal>
+        </div>
+  
 </template>
 <script>
 import axios from 'axios'
@@ -28,6 +42,8 @@ import qs from 'qs'
     export default {
         data () {
             return {
+                modal1:false,
+                reportContentWeek:[],
                 weekyColumns: [
                     {
                         title: '时间',
@@ -79,7 +95,7 @@ import qs from 'qs'
                             return h('div', [
                                 h('Button', {
                                     props: {
-                                        type: 'default',
+                                        type: 'primary',
                                         size: 'small',
                                     },
                                     style: {
@@ -87,13 +103,13 @@ import qs from 'qs'
                                     },
                                     on: {
                                         click: () => {
-                                            this.show(params.index)
+                                            this.edit(params.index)
                                         }
                                     }
                                 }, '编辑'),
                                 h('Button', {
                                     props: {
-                                        type: 'default',
+                                        type: 'error',
                                         size: 'small',
                                     },
                                     on: {
@@ -106,32 +122,42 @@ import qs from 'qs'
                         }
                     }
                 ],
+                workType:[{
+                value: '项目维护',
+                label: '项目维护'   
+                },{
+                value: '项目开发',
+                label: '项目开发'
+                },{
+                value: '产品研发',
+                label: '产品研发'
+                }],
                 weeklyData:[],
                 dataValue:[],
                 dateList:[],
-                // data2:null
+                
             }
         },
         methods: {
-            show (index) {
+            edit (index) {
+                this.modal1=true
                 console.log(this.$data.weeklyData[index].weeklyId)
-                this.axios.post('http://10.1.9.53:9200/daily/weeklyinfo/findByWeeklyId',
+                this.axios.post('http://10.1.9.54:9200/daily/weeklyinfo/findByWeeklyId',
                 qs.stringify({
                     weeklyId:this.$data.weeklyData[index].weeklyId
                 })
                 )
                 .then(res => {
                     if(res.data.resultCode == '200'){
-                        this.$store.reportContentWeek = res.data.data
-                        this.$router.push('/reportOperationWeek')
+                        this.reportContentWeek = res.data.data
+                        //this.$router.push('/reportOperationWeek')
                         }
-                    
-                    console.log(res)
                 })
                 .catch(err => {
                     console.error(err); 
                 })
             },
+
             remove (index) {
                 var thisWId = this.$data.weeklyData[index].weeklyId
                 console.log(thisWId)
@@ -151,6 +177,37 @@ import qs from 'qs'
                 })
                 this.weeklyData.splice(index, 1);
             },
+
+
+            ok(){
+                 console.log(this.$data.reportContentWeek)
+                 this.axios.post('http://10.1.9.54:9200/daily/weeklyinfo/updateByWeeklyId',
+                 qs.stringify({
+                    weeklyId:this.$data.reportContentWeek.weeklyId,
+                    target:this.$data.reportContentWeek.target,
+                    projectType:this.$data.reportContentWeek.projectType,
+                    description:this.$data.reportContentWeek.description,
+                    progress:this.$data.reportContentWeek.progress,
+                    planDate:this.$data.reportContentWeek.planDate, 
+                    reason:this.$data.reportContentWeek.reason,
+                })
+            )
+            .then(res => {
+                if(res.data.resultCode = '200'){
+                    alert('操作成功')
+                    //this.$router.go(-1)
+                    this.show()
+                }   
+            })
+            .catch(err => {
+                console.error(err); 
+            })
+            },
+            
+            cancle(){
+
+            },
+           
             clickFn:function(){
                 var d1 = new Date(this.dataValue[0])
                 var d2 =  new Date(this.dataValue[1])
@@ -206,9 +263,8 @@ import qs from 'qs'
                 .catch(err => {
                     console.error(err); 
                 })
-            }
             },
-            mounted(){
+            show(){
             var myToken = window.localStorage.getItem('token')
             userId = window.localStorage.getItem('userId')
             var userName = window.localStorage.getItem('username')
@@ -221,8 +277,8 @@ import qs from 'qs'
                 .then(res => {
                     console.log(res)
                     if(res.data.resultCode == '200'){
-                console.log(res.data.data.dateScope.length)
-                for (var i=0;i<res.data.data.dateScope.length;i++){
+                    console.log(res.data.data.dateScope.length)
+                    for (var i=0;i<res.data.data.dateScope.length;i++){
                     var daF = res.data.data.dateScope[i].dateFrom
                     var daT= res.data.data.dateScope[i].dateTo
                      daF = new Date(daF);
@@ -246,6 +302,11 @@ import qs from 'qs'
                 .catch(err => {
                     console.error(err); 
                 })
+            }
+
+            },
+            mounted(){
+            this.show()
         }
     }
 </script>

@@ -1,5 +1,6 @@
 <template>
     <div>
+
         <i-button class = 'saveReport' type="default"  @click="updReport" >保存表单</i-button>
         <!-- <div class = 'reportMessage'>{{msg}}-日工作报表</div> -->
         <div class="report">
@@ -47,6 +48,7 @@ var situation
 var problem
 import axios from 'axios'
 import qs from 'qs'
+
 export default {
     data(){
         return{
@@ -54,6 +56,7 @@ export default {
         }
     },
     methods:{
+       
         reSet:function(){
         this.$data.reportContent.content = content
         this.$data.reportContent.type = type
@@ -115,7 +118,7 @@ export default {
 </script>
  
 <style>
-    .saveReport{
+    /* .saveReport{
         position: relative;
         top: 13px;
         float: right;
@@ -193,5 +196,5 @@ export default {
         height: 85px;
         top: 12px;
         left: 23%;
-    }
+    } */
 </style>
