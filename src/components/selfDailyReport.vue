@@ -54,6 +54,7 @@ import qs from 'qs'
     export default {
         data () {
             return {
+                temp:[],
                 dailyData:[],
                 reportContent:[],
                 reportContent2:[],
@@ -192,6 +193,7 @@ import qs from 'qs'
                 if(res.data.resultCode = '200'){
                     //alert('保存成功')
                     this.show()
+                    this.$set(this.temp,'title','x')
                     //this.$router.go(-1)
                 }   
             })
