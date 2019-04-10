@@ -31,7 +31,7 @@ export default {
     },
     methods:{
         saveUri:function(){
-            this.axios.post('http://10.1.6.241/daily/menu/addMenu',
+            this.axios.post('http://10.1.6.241:9200/daily/menu/addMenu',
             qs.stringify({
                 menuName:this.$data.menuName,
                 menuUrl:this.$data.menuUrl

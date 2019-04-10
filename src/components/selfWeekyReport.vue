@@ -207,7 +207,7 @@ var timeT
             edit (index) {
                 this.modal1=true
                 console.log(this.$data.weeklyData[index].weeklyId)
-                this.axios.post('http:/10.1.6.241/daily/weeklyinfo/findByWeeklyId',
+                this.axios.post('http:/10.1.6.241:9200/daily/weeklyinfo/findByWeeklyId',
                 qs.stringify({
                     weeklyId:this.$data.weeklyData[index].weeklyId
                 })
@@ -252,7 +252,7 @@ var timeT
                  else{
                      kinds="下周工作"
                  }
-                 this.axios.post('http://10.1.6.241/daily/weeklyinfo/updateByWeeklyId',
+                 this.axios.post('http://10.1.6.241:9200/daily/weeklyinfo/updateByWeeklyId',
                  qs.stringify({
                    
                     weeklyId:this.$data.reportContentWeek.weeklyId,
@@ -289,7 +289,7 @@ var timeT
                 var dateT = daT.getDate();
                 timeT = yearT+monthT+dateT
 
-                this.axios.post('http://10.1.6.241/daily/weeklyinfo/save',
+                this.axios.post('http://10.1.6.241:9200/daily/weeklyinfo/save',
                 qs.stringify({ 
                     kindStr:this.$data.reportContentWeek2.kind,
                     userId:userId,
@@ -320,7 +320,7 @@ var timeT
                 var d2 =  new Date(this.dataValue[1])
                 var diff = (d2-d1)/1000/3600/24
                 if(diff <= 7){
-                    this.axios.post('http://10.1.6.241/daily/weeklyinfo/editWeeklyInfo',
+                    this.axios.post('http://10.1.6.241:9200/daily/weeklyinfo/editWeeklyInfo',
                         qs.stringify({
                             userId:userId,
                             dateFrom:this.dataValue[0],
@@ -343,7 +343,7 @@ var timeT
                 this.dataValue = daterange;
             },
             choose:function(daF,daT){
-                this.axios.post('http://10.1.6.241/daily/weeklyinfo/findByDateAndUserId',
+                this.axios.post('http://10.1.6.241:9200/daily/weeklyinfo/findByDateAndUserId',
                     qs.stringify({
                         userId:userId,
                         dateFrom:daF,
@@ -364,7 +364,7 @@ var timeT
                     userId = window.localStorage.getItem('userId')
                     var userName = window.localStorage.getItem('username')
                     this.axios.defaults.headers.common['tk-token'] = myToken
-                        this.axios.post('http://10.1.6.241/daily/weeklyinfo/showWeeklyInfo',
+                        this.axios.post('http://10.1.6.241:9200/daily/weeklyinfo/showWeeklyInfo',
                             qs.stringify({
                                 userId:userId
                                 })

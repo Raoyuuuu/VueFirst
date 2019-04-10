@@ -59,7 +59,7 @@ export default {
             this.reason = null
         },
         addReport:function(){
-            this.axios.post('http://10.1.6.241/daily/weeklyinfo/save',
+            this.axios.post('http://10.1.6.241:9200/daily/weeklyinfo/save',
                 qs.stringify({
                     userId:this.$data.userId,
                     target:this.$data.target,

@@ -74,7 +74,7 @@ export default {
         //this.$data.reportContentWeek.problem = problem
         },
         updReport:function(){
-            this.axios.post('http://10.1.6.241/daily/weeklyinfo/updateByWeeklyId',
+            this.axios.post('http://10.1.6.241:9200/daily/weeklyinfo/updateByWeeklyId',
                 qs.stringify({
                     weeklyId:this.$data.reportContentWeek.weeklyId,
                     target:this.$data.reportContentWeek.target,

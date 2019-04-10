@@ -135,7 +135,7 @@ export default {
       //console.log(this.$data.dailyData[index].dailyId);
       this.axios
         .post(
-          "http://10.1.6.241/daily/dailyinfo/findByDailyId",
+          "http://10.1.6.241:9200/daily/dailyinfo/findByDailyId",
           qs.stringify({
             dailyId: this.$data.dailyData[index].dailyId
           })
@@ -171,7 +171,7 @@ export default {
       this.axios.defaults.headers.common["tk-token"] = myToken;
       this.axios
         .post(
-          "http://10.1.6.241/daily/dailyinfo/findByUserIdAndDate",
+          "http://10.1.6.241:9200/daily/dailyinfo/findByUserIdAndDate",
           qs.stringify({
             userId: this.$store.user,
             dateFrom: this.$data.beginTime,
@@ -204,7 +204,7 @@ export default {
     this.axios.defaults.headers.common["tk-token"] = myToken;
     this.axios
       .post(
-        "http://10.1.6.241/daily/dailyinfo/findByUserId",
+        "http://10.1.6.241:9200/daily/dailyinfo/findByUserId",
         qs.stringify({
           userId: this.$store.user
         })

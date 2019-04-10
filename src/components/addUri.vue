@@ -31,7 +31,7 @@ export default {
     },
     methods:{
         saveUri:function(){
-            this.axios.post('http://10.1.6.241/daily/uri/addPower',
+            this.axios.post('http://10.1.6.241:9200/daily/uri/addPower',
             qs.stringify({
                 descrip:this.$data.myDescrip,
                 uri:this.$data.myUri
