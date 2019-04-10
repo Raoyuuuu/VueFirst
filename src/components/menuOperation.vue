@@ -38,7 +38,7 @@ export default {
             this.$data.menuContent.menuUrl = menuUrl
         },
         saveMenu:function(){
-            this.axios.post('http://10.1.9.54:9200/daily/menu/updateMenu',
+            this.axios.post('http://10.1.6.241:9200/daily/menu/updateMenu',
             qs.stringify({
                 menuId:this.$data.menuContent.menuId,
                 menuName:this.$data.menuContent.menuName,

@@ -87,7 +87,7 @@ export default {
             // console.log(qs.stringify(this.$data.name))
             // console.log(qs.stringify(this.$data.deptId))
             // this.axios.defaults.headers.common['kt-token'] = myToken
-            this.axios.post('http://10.1.9.54:9200/daily/userinfo/findUserByParams',
+            this.axios.post('http://10.1.6.241:9200/daily/userinfo/findUserByParams',
             qs.stringify(
                 {
                     name:  this.$data.name,
@@ -113,7 +113,7 @@ export default {
     },mounted(){
             myToken = window.localStorage.getItem('token')
             this.axios.defaults.headers.common['tk-token'] = myToken
-            this.axios.post('http://10.1.9.54:9200/daily/userinfo/findAllUserInfo')
+            this.axios.post('http://10.1.6.241:9200/daily/userinfo/findAllUserInfo')
             .then(res => {
                 //console.log(res)
                 if(res.data.resultCode == '200'){
@@ -123,7 +123,7 @@ export default {
             .catch(err => {
                 console.error(err); 
             })
-            this.axios.post('http://10.1.9.54:9200/daily/deptinfo/findAll')
+            this.axios.post('http://10.1.6.241:9200/daily/deptinfo/findAll')
             .then(res => {
                 //console.log(res)
                 if(res.data.resultCode == '200'){

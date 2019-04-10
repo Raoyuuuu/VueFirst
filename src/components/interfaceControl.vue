@@ -69,7 +69,7 @@ export default {
         },methods:{
             show:function(index){
                  var thisMId = this.$data.uriList[index].uriId
-                 this.axios.post('http://10.1.9.54:9200/daily/uri/findUriById',
+                 this.axios.post('10.1.6.241:9200/daily/uri/findUriById',
                 qs.stringify({
                     uriId:thisMId
                 }))
@@ -86,7 +86,7 @@ export default {
             },
             remove:function(index){
                 var thisMId = this.$data.uriList[index].uriId
-                 this.axios.post('http://10.1.9.54:9200/daily/uri/delUriById',
+                 this.axios.post('http://10.1.6.241/daily/uri/delUriById',
                 qs.stringify({
                     uriId:thisMId
                 }))
@@ -107,7 +107,7 @@ export default {
         },mounted(){
             var myToken = window.localStorage.getItem('token')
             this.axios.defaults.headers.common['tk-token'] = myToken
-            this.axios.post('http://10.1.9.54:9200/daily/uri/findAllUris')
+            this.axios.post('http://10.1.6.241/daily/uri/findAllUris')
             .then(res => {
                 console.log(res)
                 if(res.data.resultCode == '200'){

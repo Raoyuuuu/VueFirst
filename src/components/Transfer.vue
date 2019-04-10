@@ -36,7 +36,7 @@ export default {
     var myToken = window.localStorage.getItem("token");
     this.axios.defaults.headers.common["kt-token"] = myToken;
     this.axios
-      .post("http://10.1.9.54:9200/daily/power/findAllPowers")
+      .post("http://10.1.6.241/daily/power/findAllPowers")
       .then(res => {
         if (res.data.resultCode == "200") {
           // for(let i=0;i<res.data.data.length;i++){

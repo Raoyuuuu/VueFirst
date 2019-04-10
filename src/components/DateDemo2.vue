@@ -44,7 +44,7 @@ export default {
     timeSearch(){
       var myToken = window.localStorage.getItem('token')
       this.axios.defaults.headers.common['tk-token'] = myToken
-      this.axios.post('http://10.1.9.53:9200/daily/dailyinfo/findByUserIdAndDate',
+      this.axios.post('http://10.1.6.241/daily/dailyinfo/findByUserIdAndDate',
             qs.stringify(
                 {
                     userId:this.$store.user,

@@ -24,7 +24,7 @@
              var data=[]
              var myToken = window.localStorage.getItem('token')
              this.axios.defaults.headers.common['kt-token'] = myToken;
-             this.axios.post('http://10.1.9.54:9200//daily/menu/findMenuTreeByUserId')
+             this.axios.post('http://10.1.6.241//daily/menu/findMenuTreeByUserId')
              .then(res => {
                 console.log(res)
                 debugger

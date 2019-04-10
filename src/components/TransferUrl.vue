@@ -34,7 +34,7 @@ export default {
     var myToken = window.localStorage.getItem('token');
     this.axios.defaults.headers.common["kt-token"] =myToken;
     this.axios
-      .post("http://10.1.9.54:9200/daily/uri/findAllUris")
+      .post("http://10.1.6.241/daily/uri/findAllUris")
       .then(res => {
         if (res.data.resultCode == "200") {
           this.uriAll = res.data.data;

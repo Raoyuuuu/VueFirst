@@ -36,7 +36,7 @@ export default {
     this.axios.defaults.headers.common["kt-token"] =myToken;
     this.axios
     
-      .post("http://10.1.9.54:9200/daily/menu/findAllMenus")
+      .post("http://10.1.6.241/daily/menu/findAllMenus")
       .then(res => { 
         
         if (res.data.resultCode == "200") {

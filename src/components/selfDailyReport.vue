@@ -137,7 +137,7 @@ import qs from 'qs'
             edit (index) {
                 this.modal1=true
                 console.log(this.$data.dailyData[index].dailyId)
-                this.axios.post('http://10.1.9.54:9200/daily/dailyinfo/findByDailyId',
+                this.axios.post('http://10.1.6.241/daily/dailyinfo/findByDailyId',
                 qs.stringify({
                     dailyId:this.$data.dailyData[index].dailyId
                 })
@@ -156,7 +156,7 @@ import qs from 'qs'
             remove (index) {
                 var thisDId = this.$data.dailyData[index].dailyId
                 console.log(thisDId)
-                this.axios.post('http://10.1.9.54:9200/daily/dailyinfo/delByDailyId',
+                this.axios.post('http://10.1.6.241/daily/dailyinfo/delByDailyId',
                     qs.stringify({
                         dailyId: thisDId
                     })
@@ -177,7 +177,7 @@ import qs from 'qs'
             },
             ok () {
                 console.log(this.$data.reportContent)
-                this.axios.post('http://10.1.9.54:9200/daily/dailyinfo/updateByDailyId',
+                this.axios.post('http://10.1.6.241/daily/dailyinfo/updateByDailyId',
                 qs.stringify({
                     dailyId:this.$data.reportContent.dailyId,
                     content:this.$data.reportContent.content,
@@ -205,7 +205,7 @@ import qs from 'qs'
             ok2 () {
             console.log(this.reportContent2)
             var userId = window.localStorage.getItem('userId')
-            this.axios.post('http://10.1.9.54:9200/daily/dailyinfo/save',
+            this.axios.post('http://10.1.6.241/daily/dailyinfo/save',
                 qs.stringify({
                     userId:userId,
                     content:this.$data.reportContent2.content,
@@ -239,7 +239,7 @@ import qs from 'qs'
             var userId = window.localStorage.getItem('userId')
             var userName = window.localStorage.getItem('username')
             this.axios.defaults.headers.common['tk-token'] = myToken
-             this.axios.post('http://10.1.9.54:9200/daily/dailyinfo/findByUserId',qs.stringify({
+             this.axios.post('http://10.1.6.241/daily/dailyinfo/findByUserId',qs.stringify({
             userId:userId
             }))
             .then(res => {

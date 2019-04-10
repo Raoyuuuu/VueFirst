@@ -38,7 +38,7 @@ export default {
             this.$data.uriContent.uri = uri
         },
         saveUri:function(){
-            this.axios.post('http://10.1.9.54:9200/daily/uri/updateUri',
+            this.axios.post('http://10.1.6.241/daily/uri/updateUri',
             qs.stringify({
                 uriId:this.$data.uriContent.uriId,
                 descrip:this.$data.uriContent.descrip,

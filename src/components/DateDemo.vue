@@ -43,7 +43,7 @@ export default {
       this.dateTo = to
     },
     ontPut:function(){
-      var myHerf = 'http://10.1.9.54:9200/daily/weeklyinfo/export?userId='
+      var myHerf = 'http://10.1.6.241/daily/weeklyinfo/export?userId='
       +this.$store.user+'&dateFrom='+this.$data.dateFrom+'&dateTo='+this.$data.dateTo;
       window.location.href=myHerf
     }
@@ -52,7 +52,7 @@ export default {
     var myToken = window.localStorage.getItem('token')
     var myId = this.$store.user
     this.axios.defaults.headers['tk-token'] = myToken
-    this.axios.post('http://10.1.9.54:9200/daily/weeklyinfo/showWeeklyInfo',
+    this.axios.post('http://10.1.6.241/daily/weeklyinfo/showWeeklyInfo',
       qs.stringify({
         userId:myId
       })

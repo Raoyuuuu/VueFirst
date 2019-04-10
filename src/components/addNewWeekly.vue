@@ -92,7 +92,7 @@ export default {
         },
         addReport:function(){
             
-            this.axios.post('http://10.1.9.54:9200/daily/weeklyinfo/save',
+            this.axios.post('http://10.1.6.241/daily/weeklyinfo/save',
                 qs.stringify({ 
                     kindStr:this.$data.kind,
                     userId:this.$data.userId,

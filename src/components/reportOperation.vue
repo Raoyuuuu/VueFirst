@@ -67,7 +67,7 @@ export default {
         this.$data.reportContent.problem = problem
         },
         updReport:function(){
-            this.axios.post('http://10.1.9.54:9200/daily/dailyinfo/updateByDailyId',
+            this.axios.post('http://10.1.6.241/daily/dailyinfo/updateByDailyId',
                 qs.stringify({
                     dailyId:this.$data.reportContent.dailyId,
                     content:this.$data.reportContent.content,

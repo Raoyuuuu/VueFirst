@@ -132,7 +132,7 @@ import ContentBlank from '@/components/reportOperation'
              var myToken = window.localStorage.getItem('token')
              this.$router.push('/welcome')
              this.axios.defaults.headers.common['kt-token'] = myToken;
-             this.axios.post('http://10.1.9.54:9200/daily/deptinfo/findAll')
+             this.axios.post('http://10.1.6.241/daily/deptinfo/findAll')
              .then(res => {
                  //console.log(res)
                  if(res.data.resultCode == '200'){
@@ -142,7 +142,7 @@ import ContentBlank from '@/components/reportOperation'
              .catch(err => {
                  console.error(err); 
              })
-             this.axios.post('http://10.1.9.54:9200//daily/menu/findMenuTreeByUserId')
+             this.axios.post('http://10.1.6.241//daily/menu/findMenuTreeByUserId')
              .then(res => {
                 console.log(res)
                  if(res.data.resultCode == '200'){

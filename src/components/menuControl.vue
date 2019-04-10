@@ -179,7 +179,7 @@ var thisMenuId
                 dataTemp = data
             },
             upDate(){
-                this.axios.post('http://10.1.9.54:9200/daily/menu/updateMenu',
+                this.axios.post('http://10.1.6.241/daily/menu/updateMenu',
                     qs.stringify({
                         menuId:thisMenuId,
                         menuName:this.$data.menuName,
@@ -210,7 +210,7 @@ var thisMenuId
                     menuUrl: this.menuUrl
                 });
                 this.$set(dataTemp, 'children', children);
-                this.axios.post('http://10.1.9.54:9200/daily/menu/addMenu',
+                this.axios.post('http://10.1.6.241/daily/menu/addMenu',
                     qs.stringify({
                         menuPid: dataTemp.menuId,
                         menuName: this.menuName,
@@ -232,7 +232,7 @@ var thisMenuId
                 const parent = root.find(el => el.nodeKey === parentKey).node;
                 const index = parent.children.indexOf(data);
                 console.log(data)
-                this.axios.post('http://10.1.9.54:9200/daily/menu/delMenuById',
+                this.axios.post('http://10.1.6.241/daily/menu/delMenuById',
                 qs.stringify({
                     menuId:data.menuId
                 }))
@@ -263,7 +263,7 @@ var thisMenuId
             var myToken = window.localStorage.getItem('token')
             var data = []
             this.axios.defaults.headers['kt-token'] = myToken
-            this.axios.post('http://10.1.9.54:9200/daily/menu/findMenuTree')
+            this.axios.post('http://10.1.6.241/daily/menu/findMenuTree')
             .then(res => {
                 console.log(res)
                 data = res.data.data
