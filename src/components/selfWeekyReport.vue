@@ -49,20 +49,20 @@
                         <Option v-for="itemn in planType" :value="itemn.value" :key="itemn.value" >{{ itemn.label }}</Option>
             </Select><br><br>
 
-            项目名称：<Input v-model="reportContentWeek2.target" placeholder="Enter something..."></Input><br><br>
+            项目名称：<Input v-model="reportContentWeek2.target" placeholder="Enter something..."/><br><br>
 
             类别：
             <Select v-model="reportContentWeek2.projectType"  placeholder="请选择类别">
                         <Option v-for="itemnn in workType" :value="itemnn.value" :key="itemnn.value" >{{ itemnn.label }}</Option>
             </Select><br><br>
 
-            当前进度：<Input v-model="reportContentWeek2.progress" placeholder="Enter something..."></Input><br><br>
+            当前进度：<Input v-model="reportContentWeek2.progress" placeholder="Enter something..."/><br><br>
 
-            预计完成时间：<Input v-model="reportContentWeek2.planDate" placeholder="Enter something..."></Input><br><br>
+            预计完成时间：<Input v-model="reportContentWeek2.planDate" placeholder="Enter something..."/><br><br>
 
-            内容描述：<Input v-model="reportContentWeek2.description" placeholder="Enter something..."></Input><br><br>
+            内容描述：<Input v-model="reportContentWeek2.description" placeholder="Enter something..."/><br><br>
 
-            未完成原因：<Input v-model="reportContentWeek2.reason" placeholder="Enter something..."></Input><br><br>
+            未完成原因：<Input v-model="reportContentWeek2.reason" placeholder="Enter something..."/><br><br>
         </div>
         </Modal>
         </div>
