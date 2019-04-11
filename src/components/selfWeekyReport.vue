@@ -85,8 +85,7 @@ var timeT
                 modal2:false,
                 reportContentWeek:[],
                 reportContentWeek2:[],
-                dataValue:[],
-
+                temp:[],
                 planType:[{
                 value: '本周工作',
                 label: '本周工作'   
@@ -207,7 +206,7 @@ var timeT
             edit (index) {
                 this.modal1=true
                 console.log(this.$data.weeklyData[index].weeklyId)
-                this.axios.post('http:/10.1.6.241:9200/daily/weeklyinfo/findByWeeklyId',
+                this.axios.post('http://10.1.6.241:9200/daily/weeklyinfo/findByWeeklyId',
                 qs.stringify({
                     weeklyId:this.$data.weeklyData[index].weeklyId
                 })
@@ -306,7 +305,7 @@ var timeT
                 .then(res => {
                     if(res.data.resultCode == '200'){
                         alert('操作成功')
-                        this.show
+                        this.show()
                     }
                     console.log(res)
                 })
@@ -329,7 +328,9 @@ var timeT
                     )
                     .then(res => {
                         console.log(res)
-                        this.weeklyData = res.data.data
+                        // this.weeklyData = res.data.data
+                        // this.$set(this.temp,'title','s')
+                        this.show()
                         
                     })
                     .catch(err => {
